@@ -57,7 +57,7 @@ export const Header = ({ title }: HeaderProps) => {
           <Text style={styles.greeting}>
             {getGreeting()}, {user}
           </Text>
-          <Text style={styles.time}>{currentTime}</Text>
+          <Text style={styles.time}>⏰ {currentTime}</Text>
         </View>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <MaterialIcons name="logout" size={24} color={theme.colors.danger} />

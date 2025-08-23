@@ -12,8 +12,6 @@
    [x] Listagem de clientes com: Nome, CPF ou CNPJ, Saldo
    [x] Barra de pesquisa por CPF/CNPJ ou Nome
    [x] Botão para criar novo cliente
-   [] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
-   Renda Mensal)
    [x] Botão para excluir cliente
 
 
@@ -21,8 +19,12 @@
    [] Campos obrigatórios: Nome, CPF/CNPJ, Idade/Data Fundação,
    Renda Mensal
    [] Ao salvar, o cliente deve aparecer na listagem
+
+
 4. Tela de Atualização de Cliente
    [] Edição dos campos: Nome, Idade/Data de Fundação, Renda Mensal
+   [] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
+   Renda Mensal)
 
 
 
