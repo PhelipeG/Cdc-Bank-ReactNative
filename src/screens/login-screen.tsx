@@ -1,23 +1,13 @@
 import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import { theme } from "../theme/theme";
 import { Input } from "../components/input";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
 import { useState } from "react";
 import { Button } from "../components/button";
 import { Loading } from "../components/loading";
-import { emailRegex } from "../utils/utils";
 import { useAuth } from "../hooks/useAuth";
-
-const schema = z.object({
-  email: z.string().refine((value) => emailRegex.test(value), {
-    message: "Email inválido",
-  }),
-  password: z.string().min(6, "Mínimo 6 caracteres"),
-});
-
-type FormData = z.infer<typeof schema>;
+import { LoginFormData, loginSchema } from "../schemas/login-schema";
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -25,11 +15,12 @@ export default function LoginScreen() {
   const {
     control,
     handleSubmit,
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     await login(data.email, data.password)
       .catch((err) => {
@@ -40,6 +31,7 @@ export default function LoginScreen() {
         setLoading(false);
       });
   };
+
   return (
     <View style={styles.container}>
       <Image
@@ -52,14 +44,34 @@ export default function LoginScreen() {
         }}
       />
       <Text style={styles.title}>CDC Bank - Parceiros</Text>
-      <Input name="email" placeholder="Email" control={control} />
 
-      <Input
-        name="password"
-        placeholder="Senha"
+      <Controller
         control={control}
-        secureTextEntry
+        name="email"
+        render={({ field: { onChange, value } }) => (
+          <Input placeholder="Email" value={value} onChangeText={onChange} />
+        )}
       />
+      {errors.email && (
+        <Text style={styles.errorMessage}>{errors.email.message}</Text>
+      )}
+
+      <Controller
+        control={control}
+        name="password"
+        render={({ field: { onChange, value } }) => (
+          <Input
+            placeholder="Senha"
+            value={value}
+            onChangeText={onChange}
+            secureTextEntry
+          />
+        )}
+      />
+      {errors.password && (
+        <Text style={styles.errorMessage}>{errors.password.message}</Text>
+      )}
+
       {loading ? (
         <Loading />
       ) : (
@@ -68,6 +80,7 @@ export default function LoginScreen() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

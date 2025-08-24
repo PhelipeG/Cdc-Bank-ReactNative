@@ -1,8 +1,8 @@
-import { Client } from "../models/client";
 import { View, TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { formatToBRL } from "../utils/utils";
-import { theme } from "../theme/theme";
+import { Client } from "../../models/client";
+import { formatToBRL } from "../../utils/utils";
+import { theme } from "../../theme/theme";
 
 interface ClientCardProps {
   client: Client;

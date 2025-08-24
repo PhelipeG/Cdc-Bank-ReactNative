@@ -7,8 +7,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/home-screen";
 import { AuthProvider } from "./src/contexts/authContext";
 import { MaterialIcons } from "@expo/vector-icons";
-import RegisterClientScreen from "./src/screens/register-client";
+
 import { theme } from "./src/theme/theme";
+import RegisterClientScreen from "./src/screens/register-screen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -3,13 +3,13 @@ import { FlashList } from "@shopify/flash-list";
 import { useEffect, useMemo, useState } from "react";
 import { clientsMock } from "../mocks/clients-mock";
 import { Client } from "../models/client";
-import { ClientCard } from "../components/client-card";
 import { Header } from "../components/header";
 import { theme } from "../theme/theme";
 import { removeAccents } from "../utils/utils";
 import { useDebounce } from "../hooks/useDebounce";
 import { Loading } from "../components/loading";
 import { Button } from "../components/button";
+import { ClientCard } from "../components/features/client-card";
 
 export default function HomeScreen() {
   const [search, setSearch] = useState("");
