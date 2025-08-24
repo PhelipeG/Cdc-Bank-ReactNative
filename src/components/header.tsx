@@ -52,7 +52,7 @@ export const Header = ({ title }: HeaderProps) => {
           text: 'Sair da Sessão',
           onPress: () => logout(),
         },
-      ],
+      ]
     );
   };
 

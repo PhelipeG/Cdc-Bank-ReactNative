@@ -3,7 +3,7 @@ export interface Client {
   name: string;
   document: string;
   ageOrFoundationDate: string;
-  monthlyIncome: number; 
+  monthlyIncome: number;
   balance: number;
   createdAt: string;
   updatedAt: string;
@@ -14,7 +14,6 @@ export interface CreateClientData {
   document: string;
   ageOrFoundationDate: string;
   monthlyIncome: number;
-
 }
 export interface TransferData {
   fromClientId: string;

@@ -9,7 +9,7 @@ interface AuthContextType {
 }
 
 export const AuthContext = createContext<AuthContextType>(
-  {} as AuthContextType,
+  {} as AuthContextType
 );
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({

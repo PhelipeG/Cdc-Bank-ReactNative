@@ -96,13 +96,13 @@ function Routes() {
   );
 }
 
-export default function App() { 
+export default function App() {
   return (
     <AuthProvider>
       <ClientsProvider>
-      <NavigationContainer>
-        <Routes />
-      </NavigationContainer>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
       </ClientsProvider>
     </AuthProvider>
   );

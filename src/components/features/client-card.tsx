@@ -20,10 +20,7 @@ export const ClientCard = ({ client, onDelete }: ClientCardProps) => {
           <Text style={styles.name}>{client.name}</Text>
           <Text style={styles.doc}>{client.document}</Text>
         </View>
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={onDelete}
-        >
+        <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
           <MaterialIcons name="delete" size={20} color={theme.colors.danger} />
         </TouchableOpacity>
       </View>

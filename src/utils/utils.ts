@@ -4,7 +4,6 @@
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
 export const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-
 /**
  * Formata um valor numérico para  a nossa moeda brasileira (BRL)
  * @param value - Valor a ser formatado recebido
@@ -69,4 +68,29 @@ export function formatCurrencyInput(value: string): string {
   });
   return `R$ ${formattedValue}`;
 }
+/**
+ * Valida se uma data no formato DD/MM/AAAA é válida
+ * @param dateString - String no formato DD/MM/AAAA
+ * @returns boolean - true se a data for válida
+ */
+export function isValidDate(dateString: string): boolean {
+  // Verificar formato DD/MM/AAAA
+  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) {
+    return false;
+  }
 
+  // Extrair dia, mês e ano
+  const [day, month, year] = dateString.split('/').map(Number);
+
+  // Criar objeto Date (mês é 0-indexado)
+  const date = new Date(year, month - 1, day);
+
+  // Verificar se a data é válida
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day &&
+    year >= 1900 &&
+    year <= new Date().getFullYear()
+  );
+}

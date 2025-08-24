@@ -76,7 +76,11 @@ export default function LoginScreen() {
       {loading ? (
         <Loading />
       ) : (
-        <Button title="Entrar" onPress={handleSubmit(onSubmit)} disabled={loading} />
+        <Button
+          title="Entrar"
+          onPress={handleSubmit(onSubmit)}
+          disabled={loading}
+        />
       )}
     </View>
   );

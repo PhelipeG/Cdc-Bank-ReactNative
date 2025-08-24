@@ -11,29 +11,25 @@ type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
 
 export default function RegisterClientScreen() {
   const navigation = useNavigation<NavigationProps>();
-  const { addClient , loading } = useClients();
+  const { addClient, loading } = useClients();
 
-  const handleCreateClient = async  (data: ClientFormData) => {
-     try {
+  const handleCreateClient = async (data: ClientFormData) => {
+    try {
       await addClient(data);
-      Alert.alert(
-        'Sucesso!', 
-        `Cliente ${data.name} cadastrado com sucesso!`,
-        [
-          {
-            text: 'Ver Lista de Clientes',
-            onPress: () => navigation.navigate('Clients'),
-          },
-          {
-            text: 'Cadastrar Novo Cliente',
-            style: 'cancel',
-          }
-        ]
-      );
+      Alert.alert('Sucesso!', `Cliente ${data.name} cadastrado com sucesso!`, [
+        {
+          text: 'Ver Lista de Clientes',
+          onPress: () => navigation.navigate('Clients'),
+        },
+        {
+          text: 'Cadastrar Novo Cliente',
+          style: 'cancel',
+        },
+      ]);
     } catch (error) {
       console.error('Erro no cadastro:', error);
       Alert.alert(
-        'Erro', 
+        'Erro',
         'Não foi possível cadastrar o cliente. Tente novamente.',
         [{ text: 'OK' }]
       );

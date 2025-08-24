@@ -1,6 +1,6 @@
 import { View, StyleSheet, TextInput, Alert } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Header } from '../components/header';
 import { theme } from '../theme/theme';
 import { removeAccents } from '../utils/utils';
@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { TabParamList } from '../@types/navigation';
 import { useClients } from '../hooks/useClients';
+import { Client } from '../models/client';
 
 type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
 
@@ -22,6 +23,59 @@ export default function HomeScreen() {
   const navigate = useNavigation<NavigationProps>();
 
   const { clients, loading, deleteClient, reloadClients } = useClients();
+
+  const handleDeleteClient = useCallback(
+    async (clientId: string) => {
+      Alert.alert(
+        'Confirmar exclusão',
+        'Tem certeza que deseja excluir este cliente?',
+        [
+          { text: 'Cancelar', style: 'cancel' },
+          {
+            text: 'Excluir',
+            style: 'destructive',
+            onPress: async () => {
+              try {
+                await deleteClient(clientId);
+                Alert.alert('Sucesso', 'Cliente excluído com sucesso!');
+              } catch (error) {
+                console.error('Erro ao excluir cliente:', error);
+                Alert.alert('Erro', 'Não foi possível excluir o cliente');
+              }
+            },
+          },
+        ]
+      );
+    },
+    [deleteClient]
+  );
+
+  const handleNavigateToCreateClient = useCallback(() => {
+    navigate.navigate('RegisterClients');
+  }, [navigate]);
+
+  const handleReloadClients = useCallback(async () => {
+    try {
+      await reloadClients();
+      Alert.alert('Info', 'Lista recarregada!');
+      setSearch('');
+    } catch (error) {
+      console.error('Erro ao recarregar clientes:', error);
+      Alert.alert('Erro', 'Não foi possível recarregar a lista de clientes');
+    }
+  }, [reloadClients]);
+
+  const renderClientCard = useCallback(
+    ({ item }: { item: Client }) => {
+      return (
+        <ClientCard
+          client={item}
+          onDelete={() => handleDeleteClient(item.id)}
+        />
+      );
+    },
+    [handleDeleteClient]
+  );
 
   const filteredClients = useMemo(() => {
     if (!debouncedSearch.trim()) {
@@ -45,44 +99,6 @@ export default function HomeScreen() {
       setIsSearching(true);
     }
   }, [search, debouncedSearch]);
-
-  const handleDeleteClient = async (clientId: string) => {
-    Alert.alert(
-      'Confirmar exclusão',
-      'Tem certeza que deseja excluir este cliente?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Excluir',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await deleteClient(clientId); // Isso vai atualizar o contexto automaticamente
-              Alert.alert('Sucesso', 'Cliente excluído com sucesso!');
-            } catch (error) {
-              console.error('Erro ao excluir cliente:', error);
-              Alert.alert('Erro', 'Não foi possível excluir o cliente');
-            }
-          },
-        },
-      ]
-    );
-  };
-
-  const handleNavigateToCreateClient = () => {
-    navigate.navigate('RegisterClients');
-  };
-
-  const handleReloadClients = async () => {
-    try {
-      await reloadClients();
-      Alert.alert('Info', 'Lista recarregada!');
-      setSearch('');
-    } catch (error) {
-      console.error('Erro ao recarregar clientes:', error);
-      Alert.alert('Erro', 'Não foi possível recarregar a lista de clientes');
-    }
-  };
 
   if (loading || isSearching) {
     return (
@@ -130,13 +146,8 @@ export default function HomeScreen() {
       <FlashList
         keyExtractor={item => item.id}
         data={filteredClients}
-        estimatedItemSize={80}
-        renderItem={({ item }) => (
-          <ClientCard
-            client={item}
-            onDelete={() => handleDeleteClient(item.id)}
-          />
-        )}
+        estimatedItemSize={120}
+        renderItem={renderClientCard}
         showsVerticalScrollIndicator={false}
       />
     </View>
