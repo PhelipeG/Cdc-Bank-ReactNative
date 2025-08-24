@@ -3,7 +3,7 @@ import { CompositeNavigationProp, useNavigation } from '@react-navigation/native
 import { StackNavigationProp } from '@react-navigation/stack';
 import { FlashList } from '@shopify/flash-list';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert,StyleSheet, TextInput, View } from 'react-native';
+import { Alert,RefreshControl,StyleSheet, TextInput, View } from 'react-native';
 
 import { RootStackParamList, TabParamList } from '../@types/navigation';
 import { Button } from '../components/button';
@@ -156,6 +156,7 @@ export default function HomeScreen() {
         estimatedItemSize={120}
         renderItem={renderClientCard}
         showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={loading} onRefresh={handleReloadClients} />}
       />
     </View>
   );
