@@ -1,17 +1,18 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useAuth } from './src/hooks/useAuth';
-import LoginScreen from './src/screens/login-screen';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/screens/home-screen';
-import { AuthProvider } from './src/contexts/authContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { theme } from './src/theme/theme';
-import RegisterClientScreen from './src/screens/register-screen';
 import { RootStackParamList, TabParamList } from './src/@types/navigation';
+import { AuthProvider } from './src/contexts/authContext';
 import { ClientsProvider } from './src/contexts/clientContext';
+import { useAuth } from './src/hooks/useAuth';
+import EditClientScreen from './src/screens/edit-client-screen';
+import HomeScreen from './src/screens/home-screen';
+import LoginScreen from './src/screens/login-screen';
+import RegisterClientScreen from './src/screens/register-screen';
+import TransferScreen from './src/screens/transfer-screen';
+import { theme } from './src/theme/theme';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -48,9 +49,7 @@ function AppTabs() {
         name="Clients"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="people" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialIcons name="people" size={24} color={color} />,
           tabBarLabel: 'Clientes',
         }}
       />
@@ -58,10 +57,16 @@ function AppTabs() {
         name="RegisterClients"
         component={RegisterClientScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="person-add" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialIcons name="person-add" size={24} color={color} />,
           tabBarLabel: 'Registrar Cliente',
+        }}
+      />
+      <Tab.Screen
+        name="Transfer"
+        component={TransferScreen}
+        options={{
+          tabBarIcon: ({ color }) => <MaterialIcons name="swap-horiz" size={24} color={color} />,
+          tabBarLabel: 'Transferir',
         }}
       />
     </Tab.Navigator>
@@ -79,18 +84,15 @@ function Routes() {
     <Stack.Navigator>
       {user ? (
         <>
+          <Stack.Screen name="AppTabs" component={AppTabs} options={{ headerShown: false }} />
           <Stack.Screen
-            name="AppTabs"
-            component={AppTabs}
-            options={{ headerShown: false }}
+            name="EditClient"
+            component={EditClientScreen}
+            options={{ headerShown: false, presentation: 'modal' }}
           />
         </>
       ) : (
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       )}
     </Stack.Navigator>
   );

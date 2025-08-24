@@ -56,8 +56,7 @@ export function formatDocumentInput(value: string): string {
 export function formatDateInput(value: string): string {
   const numericValue = value.replace(/\D/g, '');
   if (numericValue.length <= 2) return numericValue;
-  if (numericValue.length <= 4)
-    return `${numericValue.slice(0, 2)}/${numericValue.slice(2)}`;
+  if (numericValue.length <= 4) return `${numericValue.slice(0, 2)}/${numericValue.slice(2)}`;
   return `${numericValue.slice(0, 2)}/${numericValue.slice(2, 4)}/${numericValue.slice(4, 8)}`;
 }
 export function formatCurrencyInput(value: string): string {

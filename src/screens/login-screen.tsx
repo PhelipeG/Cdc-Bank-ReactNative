@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet, Image, Alert } from 'react-native';
-import { theme } from '../theme/theme';
-import { Input } from '../components/input';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { Controller,useForm } from 'react-hook-form';
+import { Alert,Image, StyleSheet, Text, View } from 'react-native';
+
+import Logo from '../../assets/logo-main.jpg';
 import { Button } from '../components/button';
+import { Input } from '../components/input';
 import { Loading } from '../components/loading';
 import { useAuth } from '../hooks/useAuth';
 import { LoginFormData, loginSchema } from '../schemas/login-schema';
-import Logo from '../../assets/logo-main.jpg';
+import { theme } from '../theme/theme';
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -24,7 +25,7 @@ export default function LoginScreen() {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     await login(data.email, data.password)
-      .catch(err => {
+      .catch((err) => {
         Alert.alert('Erro', 'Não foi possível realizar o login');
         console.log(err);
       })
@@ -53,34 +54,21 @@ export default function LoginScreen() {
           <Input placeholder="Email" value={value} onChangeText={onChange} />
         )}
       />
-      {errors.email && (
-        <Text style={styles.errorMessage}>{errors.email.message}</Text>
-      )}
+      {errors.email && <Text style={styles.errorMessage}>{errors.email.message}</Text>}
 
       <Controller
         control={control}
         name="password"
         render={({ field: { onChange, value } }) => (
-          <Input
-            placeholder="Senha"
-            value={value}
-            onChangeText={onChange}
-            secureTextEntry
-          />
+          <Input placeholder="Senha" value={value} onChangeText={onChange} secureTextEntry />
         )}
       />
-      {errors.password && (
-        <Text style={styles.errorMessage}>{errors.password.message}</Text>
-      )}
+      {errors.password && <Text style={styles.errorMessage}>{errors.password.message}</Text>}
 
       {loading ? (
         <Loading />
       ) : (
-        <Button
-          title="Entrar"
-          onPress={handleSubmit(onSubmit)}
-          disabled={loading}
-        />
+        <Button title="Entrar" onPress={handleSubmit(onSubmit)} disabled={loading} />
       )}
     </View>
   );

@@ -1,53 +1,61 @@
-import { View, StyleSheet, TextInput, Alert } from 'react-native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { FlashList } from '@shopify/flash-list';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Header } from '../components/header';
-import { theme } from '../theme/theme';
-import { removeAccents } from '../utils/utils';
-import { useDebounce } from '../hooks/useDebounce';
-import { Loading } from '../components/loading';
+import { Alert,StyleSheet, TextInput, View } from 'react-native';
+
+import { RootStackParamList, TabParamList } from '../@types/navigation';
 import { Button } from '../components/button';
 import { ClientCard } from '../components/features/client-card';
-import { useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { TabParamList } from '../@types/navigation';
+import { Header } from '../components/header';
+import { Loading } from '../components/loading';
 import { useClients } from '../hooks/useClients';
+import { useDebounce } from '../hooks/useDebounce';
 import { Client } from '../models/client';
+import { theme } from '../theme/theme';
+import { removeAccents } from '../utils/utils';
 
-type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
+type HomeScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'Clients'>,
+  StackNavigationProp<RootStackParamList>
+>;
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearch = useDebounce(search, 400);
-  const navigate = useNavigation<NavigationProps>();
+  const navigate = useNavigation<HomeScreenNavigationProp>();
 
   const { clients, loading, deleteClient, reloadClients } = useClients();
 
   const handleDeleteClient = useCallback(
     async (clientId: string) => {
-      Alert.alert(
-        'Confirmar exclusão',
-        'Tem certeza que deseja excluir este cliente?',
-        [
-          { text: 'Cancelar', style: 'cancel' },
-          {
-            text: 'Excluir',
-            style: 'destructive',
-            onPress: async () => {
-              try {
-                await deleteClient(clientId);
-                Alert.alert('Sucesso', 'Cliente excluído com sucesso!');
-              } catch (error) {
-                console.error('Erro ao excluir cliente:', error);
-                Alert.alert('Erro', 'Não foi possível excluir o cliente');
-              }
-            },
+      Alert.alert('Confirmar exclusão', 'Tem certeza que deseja excluir este cliente?', [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteClient(clientId);
+              Alert.alert('Sucesso', 'Cliente excluído com sucesso!');
+            } catch (error) {
+              console.error('Erro ao excluir cliente:', error);
+              Alert.alert('Erro', 'Não foi possível excluir o cliente');
+            }
           },
-        ]
-      );
+        },
+      ]);
     },
-    [deleteClient]
+    [deleteClient],
+  );
+
+  const handleEditClient = useCallback(
+    (clientId: string) => {
+      navigate.navigate('EditClient', { clientId });
+    },
+    [navigate],
   );
 
   const handleNavigateToCreateClient = useCallback(() => {
@@ -71,10 +79,11 @@ export default function HomeScreen() {
         <ClientCard
           client={item}
           onDelete={() => handleDeleteClient(item.id)}
+          onEdit={() => handleEditClient(item.id)}
         />
       );
     },
-    [handleDeleteClient]
+    [handleDeleteClient, handleEditClient],
   );
 
   const filteredClients = useMemo(() => {
@@ -85,12 +94,10 @@ export default function HomeScreen() {
     setIsSearching(true);
     setTimeout(() => setIsSearching(false), 400);
 
-    return clients.filter(client => {
+    return clients.filter((client) => {
       const searchTerm = removeAccents(debouncedSearch.toLowerCase());
       const clientName = removeAccents(client.name.toLowerCase());
-      return (
-        clientName.includes(searchTerm) || client.document.includes(searchTerm)
-      );
+      return clientName.includes(searchTerm) || client.document.includes(searchTerm);
     });
   }, [debouncedSearch, clients]);
 
@@ -144,7 +151,7 @@ export default function HomeScreen() {
       </View>
 
       <FlashList
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         data={filteredClients}
         estimatedItemSize={120}
         renderItem={renderClientCard}

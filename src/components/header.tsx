@@ -1,14 +1,8 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  SafeAreaView,
-} from 'react-native';
-import { useAuth } from '../hooks/useAuth';
-import { useEffect, useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { Alert, SafeAreaView,StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { useAuth } from '../hooks/useAuth';
 import { theme } from '../theme/theme';
 
 interface HeaderProps {
@@ -40,20 +34,16 @@ export const Header = ({ title }: HeaderProps) => {
     return 'Boa noite';
   };
   const handleLogout = () => {
-    Alert.alert(
-      'Confirmar Saída',
-      'Você tem certeza que deseja sair da sessão?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Sair da Sessão',
-          onPress: () => logout(),
-        },
-      ]
-    );
+    Alert.alert('Confirmar Saída', 'Você tem certeza que deseja sair da sessão?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Sair da Sessão',
+        onPress: () => logout(),
+      },
+    ]);
   };
 
   return (

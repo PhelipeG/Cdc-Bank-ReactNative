@@ -1,35 +1,38 @@
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text,TouchableOpacity, View } from 'react-native';
+
 import { Client } from '../../models/client';
-import { formatToBRL } from '../../utils/utils';
 import { theme } from '../../theme/theme';
+import { formatToBRL } from '../../utils/utils';
 
 interface ClientCardProps {
   client: Client;
   onDelete: () => void;
+  onEdit?: () => void;
 }
 
-export const ClientCard = ({ client, onDelete }: ClientCardProps) => {
+export const ClientCard = ({ client, onDelete, onEdit }: ClientCardProps) => {
   return (
-    <TouchableOpacity style={styles.card} activeOpacity={0}>
+    <TouchableOpacity style={styles.card} activeOpacity={0.8}>
       <View style={styles.row}>
         <View style={styles.iconContainer}>
-          <MaterialIcons name="people" size={32} color="#1976D2" />
+          <MaterialIcons name="person" size={32} color="#1976D2" />
         </View>
         <View style={styles.info}>
           <Text style={styles.name}>{client.name}</Text>
           <Text style={styles.doc}>{client.document}</Text>
         </View>
-        <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
-          <MaterialIcons name="delete" size={20} color={theme.colors.danger} />
-        </TouchableOpacity>
+        <View style={styles.buttonActions}>
+          <TouchableOpacity onPress={onEdit}>
+            <MaterialIcons name="edit" size={20} color={theme.colors.primary} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onDelete}>
+            <MaterialIcons name="delete" size={20} color={theme.colors.danger} />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.balanceContainer}>
-        <MaterialIcons
-          name="attach-money"
-          size={20}
-          color={theme.colors.success}
-        />
+        <MaterialIcons name="attach-money" size={20} color={theme.colors.success} />
         <Text style={styles.balance}>Saldo: {formatToBRL(client.balance)}</Text>
       </View>
     </TouchableOpacity>
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     backgroundColor: theme.colors.background,
     borderRadius: 24,
-    padding: 6,
+    padding: 8,
     marginRight: 12,
   },
   info: {
@@ -70,9 +73,11 @@ const styles = StyleSheet.create({
     color: theme.colors.textDark,
     marginTop: 2,
   },
-  deleteButton: {
+  buttonActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 8,
-    borderRadius: 8,
+    gap: 8,
   },
   balanceContainer: {
     flexDirection: 'row',

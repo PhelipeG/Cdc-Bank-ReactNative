@@ -1,16 +1,13 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
+import { Controller,useForm } from 'react-hook-form';
+import { StyleSheet,Text, View } from 'react-native';
+
 import { ClientFormData, clientSchema } from '../../schemas/client-schema';
-import { Input } from '../input';
 import { theme } from '../../theme/theme';
+import { formatCurrencyInput, formatDateInput, formatDocumentInput } from '../../utils/utils';
 import { Button } from '../button';
-import {
-  formatCurrencyInput,
-  formatDateInput,
-  formatDocumentInput,
-} from '../../utils/utils';
+import { Input } from '../input';
 
 interface ClientFormProps {
   onSubmit: (data: ClientFormData) => void;
@@ -55,11 +52,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
           control={control}
           name="name"
           render={({ field: { onChange, value } }) => (
-            <Input
-              placeholder="Nome completo"
-              value={value}
-              onChangeText={onChange}
-            />
+            <Input placeholder="Nome completo" value={value} onChangeText={onChange} />
           )}
         />
         {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
@@ -73,7 +66,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="CPF ou CNPJ"
               value={value}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 const formatted = formatDocumentInput(text);
                 onChange(formatted);
               }}
@@ -82,9 +75,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             />
           )}
         />
-        {errors.document && (
-          <Text style={styles.error}>{errors.document.message}</Text>
-        )}
+        {errors.document && <Text style={styles.error}>{errors.document.message}</Text>}
       </View>
 
       <View style={styles.field}>
@@ -95,7 +86,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="Data de nascimento (DD/MM/AAAA)"
               value={value}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 const formatted = formatDateInput(text);
                 onChange(formatted);
               }}
@@ -104,9 +95,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             />
           )}
         />
-        {errors.birthDate && (
-          <Text style={styles.error}>{errors.birthDate.message}</Text>
-        )}
+        {errors.birthDate && <Text style={styles.error}>{errors.birthDate.message}</Text>}
       </View>
 
       <View style={styles.field}>
@@ -117,7 +106,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="Renda mensal"
               value={value}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 const formatted = formatCurrencyInput(text);
                 onChange(formatted);
               }}
@@ -125,9 +114,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             />
           )}
         />
-        {errors.monthlyIncome && (
-          <Text style={styles.error}>{errors.monthlyIncome.message}</Text>
-        )}
+        {errors.monthlyIncome && <Text style={styles.error}>{errors.monthlyIncome.message}</Text>}
       </View>
 
       <Button

@@ -1,6 +1,7 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import { theme } from '../theme/theme';
 
 interface ButtonProps {
@@ -46,23 +47,14 @@ export const Button = ({
 
   const renderContent = () => {
     if (!icon) {
-      return (
-        <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>
-      );
+      return <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>;
     }
 
     const iconElement = (
-      <MaterialIcons
-        name={icon}
-        size={20}
-        color={getTextColor()}
-        style={styles.icon}
-      />
+      <MaterialIcons name={icon} size={20} color={getTextColor()} style={styles.icon} />
     );
 
-    const textElement = (
-      <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>
-    );
+    const textElement = <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>;
 
     return (
       <View style={styles.content}>

@@ -1,11 +1,12 @@
-import { View, StyleSheet, Alert } from 'react-native';
-import { Header } from '../components/header';
-import { ClientFormData } from '../schemas/client-schema';
-import { ClientForm } from '../components/features/client-form';
-import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { Alert,StyleSheet, View } from 'react-native';
+
 import { TabParamList } from '../@types/navigation';
+import { ClientForm } from '../components/features/client-form';
+import { Header } from '../components/header';
 import { useClients } from '../hooks/useClients';
+import { ClientFormData } from '../schemas/client-schema';
 
 type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
 
@@ -28,11 +29,9 @@ export default function RegisterClientScreen() {
       ]);
     } catch (error) {
       console.error('Erro no cadastro:', error);
-      Alert.alert(
-        'Erro',
-        'Não foi possível cadastrar o cliente. Tente novamente.',
-        [{ text: 'OK' }]
-      );
+      Alert.alert('Erro', 'Não foi possível cadastrar o cliente. Tente novamente.', [
+        { text: 'OK' },
+      ]);
       throw error;
     }
   };

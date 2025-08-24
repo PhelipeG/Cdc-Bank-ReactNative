@@ -18,12 +18,12 @@
    Renda Mensal
    [x] Ao salvar, o cliente deve aparecer na listagem
 
-4. Tela de Atualização de Cliente
+4. Tela de Atualização de Cliente[x]
    [] Edição dos campos: Nome, Idade/Data de Fundação, Renda Mensal
-   [] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
+   [X] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
    Renda Mensal)
 
-5. Transações entre Contas
+5. Transações entre Contas [x]
    [] Selecionar cliente de origem e cliente de destino (ambos do mesmo
    parceiro)
    [] Inserir valor da transferência
