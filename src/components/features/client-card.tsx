@@ -1,8 +1,8 @@
-import { View, TouchableOpacity, StyleSheet, Text, Alert } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Client } from "../../models/client";
-import { formatToBRL } from "../../utils/utils";
-import { theme } from "../../theme/theme";
+import { View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Client } from '../../models/client';
+import { formatToBRL } from '../../utils/utils';
+import { theme } from '../../theme/theme';
 
 interface ClientCardProps {
   client: Client;
@@ -11,18 +11,18 @@ interface ClientCardProps {
 }
 
 export const ClientCard = ({ client, onPress, onDelete }: ClientCardProps) => {
-   const handleDelete = () => {
+  const handleDelete = () => {
     Alert.alert(
-      "Excluir Cliente",
+      'Excluir Cliente',
       `Tem certeza que deseja excluir ${client.name}?`,
       [
-        { text: "Cancelar", style: "cancel" },
+        { text: 'Cancelar', style: 'cancel' },
         {
-          text: "Excluir",
-          style: "destructive",
+          text: 'Excluir',
+          style: 'destructive',
           onPress: () => onDelete?.(client.id),
         },
-      ]
+      ],
     );
   };
   return (
@@ -35,12 +35,16 @@ export const ClientCard = ({ client, onPress, onDelete }: ClientCardProps) => {
           <Text style={styles.name}>{client.name}</Text>
           <Text style={styles.doc}>{client.document}</Text>
         </View>
-         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
           <MaterialIcons name="delete" size={20} color={theme.colors.danger} />
         </TouchableOpacity>
       </View>
       <View style={styles.balanceContainer}>
-        <MaterialIcons name="attach-money" size={20} color={theme.colors.success} />
+        <MaterialIcons
+          name="attach-money"
+          size={20}
+          color={theme.colors.success}
+        />
         <Text style={styles.balance}>Saldo: {formatToBRL(client.balance)}</Text>
       </View>
     </TouchableOpacity>
@@ -48,7 +52,7 @@ export const ClientCard = ({ client, onPress, onDelete }: ClientCardProps) => {
 };
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     marginHorizontal: 10,
     padding: 8,
     borderRadius: 16,
@@ -57,9 +61,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   row: {
-    textAlign: "left",
-    flexDirection: "row",
-    alignItems: "center",
+    textAlign: 'left',
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 8,
   },
   iconContainer: {
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 17,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: theme.colors.textDark,
   },
   doc: {
@@ -86,13 +90,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   balanceContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   balance: {
     fontSize: 15,
     marginTop: 4,
     color: theme.colors.success,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

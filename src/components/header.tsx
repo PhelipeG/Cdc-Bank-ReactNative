@@ -1,8 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from "react-native";
-import { useAuth } from "../hooks/useAuth";
-import { useEffect, useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { theme } from "../theme/theme";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
+import { useAuth } from '../hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
+import { theme } from '../theme/theme';
 
 interface HeaderProps {
   title: string;
@@ -10,14 +17,14 @@ interface HeaderProps {
 
 export const Header = ({ title }: HeaderProps) => {
   const { user, logout } = useAuth();
-  const [currentTime, setCurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const time = now.toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
+      const time = now.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
       });
       setCurrentTime(time);
     };
@@ -28,31 +35,31 @@ export const Header = ({ title }: HeaderProps) => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return "Bom dia";
-    if (hour < 18) return "Boa tarde";
-    return "Boa noite";
+    if (hour < 12) return 'Bom dia';
+    if (hour < 18) return 'Boa tarde';
+    return 'Boa noite';
   };
   const handleLogout = () => {
     Alert.alert(
-      "Confirmar Saída",
-      "Você tem certeza que deseja sair da sessão?",
+      'Confirmar Saída',
+      'Você tem certeza que deseja sair da sessão?',
       [
         {
-          text: "Cancelar",
-          style: "cancel",
+          text: 'Cancelar',
+          style: 'cancel',
         },
         {
-          text: "Sair da Sessão",
+          text: 'Sair da Sessão',
           onPress: () => logout(),
         },
-      ]
+      ],
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-        <View style={styles.topRow}>
+      <View style={styles.topRow}>
         <View style={styles.greetingContainer}>
           <Text style={styles.greeting}>
             {getGreeting()}, {user}
@@ -74,16 +81,16 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 8,
   },
   topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 12,
   },
   greetingContainer: {
@@ -91,22 +98,22 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 16,
-    color: "#fff",
-    fontWeight: "500",
+    color: '#fff',
+    fontWeight: '500',
   },
   time: {
     fontSize: 14,
-    color: "rgba(255, 255, 255, 0.8)",
+    color: 'rgba(255, 255, 255, 0.8)',
     marginTop: 4,
   },
   title: {
     fontSize: 28,
-    fontWeight: "bold",
-    color: "#fff",
+    fontWeight: 'bold',
+    color: '#fff',
     marginTop: 8,
   },
   logoutButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     padding: 10,
     borderRadius: 12,
   },

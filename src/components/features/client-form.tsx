@@ -1,11 +1,16 @@
-import React from "react";
-import { View, Text, StyleSheet} from "react-native";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ClientFormData, clientSchema } from "../../schemas/client-schema";
-import { Input } from "../input";
-import { theme } from "../../theme/theme";
-import { Button } from "../button";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ClientFormData, clientSchema } from '../../schemas/client-schema';
+import { Input } from '../input';
+import { theme } from '../../theme/theme';
+import { Button } from '../button';
+import {
+  formatCurrencyInput,
+  formatDateInput,
+  formatDocumentInput,
+} from '../../utils/utils';
 
 interface ClientFormProps {
   onSubmit: (data: ClientFormData) => void;
@@ -20,10 +25,10 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
   } = useForm<ClientFormData>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
-      name: "",
-      document: "",
-      birthDate: "",
-      monthlyIncome: "",
+      name: '',
+      document: '',
+      birthDate: '',
+      monthlyIncome: '',
     },
   });
 
@@ -54,12 +59,18 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="CPF ou CNPJ"
               value={value}
-              onChangeText={onChange}
+              onChangeText={text => {
+                const formatted = formatDocumentInput(text);
+                onChange(formatted);
+              }}
               keyboardType="numeric"
+              maxLength={18}
             />
           )}
         />
-        {errors.document && <Text style={styles.error}>{errors.document.message}</Text>}
+        {errors.document && (
+          <Text style={styles.error}>{errors.document.message}</Text>
+        )}
       </View>
 
       <View style={styles.field}>
@@ -70,12 +81,18 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="Data de nascimento (DD/MM/AAAA)"
               value={value}
-              onChangeText={onChange}
+              onChangeText={text => {
+                const formatted = formatDateInput(text);
+                onChange(formatted);
+              }}
               keyboardType="numeric"
+              maxLength={10}
             />
           )}
         />
-        {errors.birthDate && <Text style={styles.error}>{errors.birthDate.message}</Text>}
+        {errors.birthDate && (
+          <Text style={styles.error}>{errors.birthDate.message}</Text>
+        )}
       </View>
 
       <View style={styles.field}>
@@ -86,12 +103,17 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="Renda mensal"
               value={value}
-              onChangeText={onChange}
+              onChangeText={text => {
+                const formatted = formatCurrencyInput(text);
+                onChange(formatted);
+              }}
               keyboardType="numeric"
             />
           )}
         />
-        {errors.monthlyIncome && <Text style={styles.error}>{errors.monthlyIncome.message}</Text>}
+        {errors.monthlyIncome && (
+          <Text style={styles.error}>{errors.monthlyIncome.message}</Text>
+        )}
       </View>
 
       <Button
@@ -109,9 +131,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: theme.fontSize.lg,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: theme.colors.textDark,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: theme.spacing.lg,
   },
   field: {

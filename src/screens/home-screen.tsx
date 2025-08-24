@@ -1,21 +1,27 @@
-import { View, StyleSheet, TextInput } from "react-native";
-import { FlashList } from "@shopify/flash-list";
-import { useEffect, useMemo, useState } from "react";
-import { clientsMock } from "../mocks/clients-mock";
-import { Client } from "../models/client";
-import { Header } from "../components/header";
-import { theme } from "../theme/theme";
-import { removeAccents } from "../utils/utils";
-import { useDebounce } from "../hooks/useDebounce";
-import { Loading } from "../components/loading";
-import { Button } from "../components/button";
-import { ClientCard } from "../components/features/client-card";
+import { View, StyleSheet, TextInput } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
+import { useEffect, useMemo, useState } from 'react';
+import { clientsMock } from '../mocks/clients-mock';
+import { Client } from '../models/client';
+import { Header } from '../components/header';
+import { theme } from '../theme/theme';
+import { removeAccents } from '../utils/utils';
+import { useDebounce } from '../hooks/useDebounce';
+import { Loading } from '../components/loading';
+import { Button } from '../components/button';
+import { ClientCard } from '../components/features/client-card';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { TabParamList } from '../@types/navigation';
+
+type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
 
 export default function HomeScreen() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [clients, setClients] = useState<Client[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearch = useDebounce(search, 300);
+  const navigate = useNavigation<NavigationProps>();
 
   useEffect(() => {
     setClients(clientsMock);
@@ -29,7 +35,7 @@ export default function HomeScreen() {
     setIsSearching(true);
     setTimeout(() => setIsSearching(false), 400); // Simula o tempo de busca apenas coloquei para teste
 
-    return clients.filter((client) => {
+    return clients.filter(client => {
       const searchTerm = removeAccents(debouncedSearch.toLowerCase());
       const clientName = removeAccents(client.name.toLowerCase());
       return (
@@ -45,7 +51,12 @@ export default function HomeScreen() {
   }, [search, debouncedSearch]);
 
   const handleDeleteClient = (clientId: string) => {
-    setClients((prevClients) => prevClients.filter((client) => client.id !== clientId));
+    setClients(prevClients =>
+      prevClients.filter(client => client.id !== clientId),
+    );
+  };
+  const handleCreateClient = () => {
+    navigate.navigate('RegisterClients');
   };
 
   return (
@@ -60,16 +71,30 @@ export default function HomeScreen() {
         autoCorrect={false}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Adicionar Cliente" icon="people" onPress={() => {}} variant="primary" />
-        <Button title="Recarregar Lista" icon="refresh" onPress={() => {}} variant="secondary" />
+        <Button
+          title="Adicionar Cliente"
+          icon="people"
+          onPress={handleCreateClient}
+          variant="primary"
+        />
+        <Button
+          title="Recarregar Lista"
+          icon="refresh"
+          onPress={() => {}}
+          variant="secondary"
+        />
       </View>
       {isSearching && <Loading />}
       <FlashList
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         data={filteredClients}
         estimatedItemSize={80}
         renderItem={({ item }) => (
-          <ClientCard client={item} onPress={() => {}} onDelete={() => handleDeleteClient(item.id)} />
+          <ClientCard
+            client={item}
+            onPress={() => {}}
+            onDelete={() => handleDeleteClient(item.id)}
+          />
         )}
         showsVerticalScrollIndicator={false}
       />
@@ -81,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   search: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 8,
     borderWidth: 1,
     borderColor: theme.colors.primary,
@@ -90,8 +115,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     margin: 10,
   },
 });

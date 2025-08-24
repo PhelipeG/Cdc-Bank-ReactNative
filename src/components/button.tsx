@@ -12,18 +12,22 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const Button = ({ 
-  title, 
-  onPress, 
-  icon, 
+export const Button = ({
+  title,
+  onPress,
+  icon,
   iconPosition = 'left',
   variant = 'primary',
-  disabled = false 
+  disabled = false,
 }: ButtonProps) => {
   const getButtonStyle = () => {
     switch (variant) {
       case 'secondary':
-        return { backgroundColor: theme.colors.background, borderWidth: 1, borderColor: theme.colors.primary };
+        return {
+          backgroundColor: theme.colors.background,
+          borderWidth: 1,
+          borderColor: theme.colors.primary,
+        };
       case 'danger':
         return { backgroundColor: theme.colors.danger };
       default:
@@ -42,14 +46,16 @@ export const Button = ({
 
   const renderContent = () => {
     if (!icon) {
-      return <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>;
+      return (
+        <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>
+      );
     }
 
     const iconElement = (
-      <MaterialIcons 
-        name={icon} 
-        size={20} 
-        color={getTextColor()} 
+      <MaterialIcons
+        name={icon}
+        size={20}
+        color={getTextColor()}
         style={styles.icon}
       />
     );
@@ -76,12 +82,8 @@ export const Button = ({
   };
 
   return (
-    <TouchableOpacity 
-      style={[
-        styles.button, 
-        getButtonStyle(),
-        disabled && styles.disabled
-      ]} 
+    <TouchableOpacity
+      style={[styles.button, getButtonStyle(), disabled && styles.disabled]}
       onPress={onPress}
       disabled={disabled}
     >

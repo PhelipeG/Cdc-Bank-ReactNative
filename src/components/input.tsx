@@ -7,11 +7,7 @@ interface InputProps extends TextInputProps {
 }
 
 export const Input = ({ placeholder, ...props }: InputProps) => (
-  <TextInput
-    style={styles.input}
-    placeholder={placeholder}
-    {...props}
-  />
+  <TextInput style={styles.input} placeholder={placeholder} {...props} />
 );
 
 const styles = StyleSheet.create({

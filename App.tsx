@@ -1,25 +1,26 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useAuth } from "./src/hooks/useAuth";
-import LoginScreen from "./src/screens/login-screen";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./src/screens/home-screen";
-import { AuthProvider } from "./src/contexts/authContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useAuth } from './src/hooks/useAuth';
+import LoginScreen from './src/screens/login-screen';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/home-screen';
+import { AuthProvider } from './src/contexts/authContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { theme } from "./src/theme/theme";
-import RegisterClientScreen from "./src/screens/register-screen";
+import { theme } from './src/theme/theme';
+import RegisterClientScreen from './src/screens/register-screen';
+import { RootStackParamList, TabParamList } from './src/@types/navigation';
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 function AppTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          position: "absolute",
+          position: 'absolute',
           borderTopWidth: 1,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
@@ -35,29 +36,31 @@ function AppTabs() {
           paddingTop: 10,
           margin: 20,
         },
-        tabBarLabelStyle:{
+        tabBarLabelStyle: {
           fontSize: theme.fontSize.sm,
           marginBottom: 4,
         },
-        headerShown: false
+        headerShown: false,
       }}
     >
       <Tab.Screen
-        name="Clientes"
+        name="Clients"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="people" size={24} color={color} />
           ),
+          tabBarLabel: 'Clientes',
         }}
       />
       <Tab.Screen
-        name="Registrar Cliente"
+        name="RegisterClients"
         component={RegisterClientScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="settings" size={24} color={color} />
+            <MaterialIcons name="person-add" size={24} color={color} />
           ),
+          tabBarLabel: 'Registrar Cliente',
         }}
       />
     </Tab.Navigator>
@@ -80,11 +83,6 @@ function Routes() {
             component={AppTabs}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="ClientForm"
-            component={ClientFormScreen}
-            options={{ title: 'Novo/Editar Cliente' }}
-          /> */}
         </>
       ) : (
         <Stack.Screen

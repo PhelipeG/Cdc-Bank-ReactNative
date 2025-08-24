@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
-import { theme } from "../theme/theme";
-import { Input } from "../components/input";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { Button } from "../components/button";
-import { Loading } from "../components/loading";
-import { useAuth } from "../hooks/useAuth";
-import { LoginFormData, loginSchema } from "../schemas/login-schema";
+import { View, Text, StyleSheet, Image, Alert } from 'react-native';
+import { theme } from '../theme/theme';
+import { Input } from '../components/input';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { Button } from '../components/button';
+import { Loading } from '../components/loading';
+import { useAuth } from '../hooks/useAuth';
+import { LoginFormData, loginSchema } from '../schemas/login-schema';
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -23,8 +23,8 @@ export default function LoginScreen() {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     await login(data.email, data.password)
-      .catch((err) => {
-        Alert.alert("Erro", "Não foi possível realizar o login");
+      .catch(err => {
+        Alert.alert('Erro', 'Não foi possível realizar o login');
         console.log(err);
       })
       .finally(() => {
@@ -35,11 +35,11 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/logo-main.jpg")}
+        source={require('../../assets/logo-main.jpg')}
         style={{
           width: 100,
           height: 100,
-          alignSelf: "center",
+          alignSelf: 'center',
           marginBottom: 20,
         }}
       />
@@ -84,13 +84,13 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: theme.spacing.lg,
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: theme.fontSize.lg,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: theme.spacing.md,
   },
   errorMessage: {
