@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Client } from '../../models/client';
 import { formatToBRL } from '../../utils/utils';
@@ -6,27 +6,12 @@ import { theme } from '../../theme/theme';
 
 interface ClientCardProps {
   client: Client;
-  onPress?: () => void;
-  onDelete: (clientId: string) => void;
+  onDelete: () => void;
 }
 
-export const ClientCard = ({ client, onPress, onDelete }: ClientCardProps) => {
-  const handleDelete = () => {
-    Alert.alert(
-      'Excluir Cliente',
-      `Tem certeza que deseja excluir ${client.name}?`,
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Excluir',
-          style: 'destructive',
-          onPress: () => onDelete?.(client.id),
-        },
-      ],
-    );
-  };
+export const ClientCard = ({ client, onDelete }: ClientCardProps) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity style={styles.card} activeOpacity={0}>
       <View style={styles.row}>
         <View style={styles.iconContainer}>
           <MaterialIcons name="people" size={32} color="#1976D2" />
@@ -35,7 +20,10 @@ export const ClientCard = ({ client, onPress, onDelete }: ClientCardProps) => {
           <Text style={styles.name}>{client.name}</Text>
           <Text style={styles.doc}>{client.document}</Text>
         </View>
-        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={onDelete}
+        >
           <MaterialIcons name="delete" size={20} color={theme.colors.danger} />
         </TouchableOpacity>
       </View>

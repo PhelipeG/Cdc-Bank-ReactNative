@@ -21,6 +21,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ClientFormData>({
     resolver: zodResolver(clientSchema),
@@ -31,6 +32,19 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
       monthlyIncome: '',
     },
   });
+  const handleClientFormSubmit = async (data: ClientFormData) => {
+    try {
+      await onSubmit(data);
+      reset({
+        name: '',
+        document: '',
+        birthDate: '',
+        monthlyIncome: '',
+      });
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -118,7 +132,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
 
       <Button
         title="Salvar Cliente"
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(handleClientFormSubmit)}
         disabled={loading}
       />
     </View>
