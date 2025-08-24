@@ -1,8 +1,6 @@
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput, Alert } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useEffect, useMemo, useState } from 'react';
-import { clientsMock } from '../mocks/clients-mock';
-import { Client } from '../models/client';
 import { Header } from '../components/header';
 import { theme } from '../theme/theme';
 import { removeAccents } from '../utils/utils';
@@ -13,19 +11,17 @@ import { ClientCard } from '../components/features/client-card';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { TabParamList } from '../@types/navigation';
+import { useClients } from '../hooks/useClients';
 
 type NavigationProps = BottomTabNavigationProp<TabParamList, 'Clients'>;
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
-  const [clients, setClients] = useState<Client[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const debouncedSearch = useDebounce(search, 300);
+  const debouncedSearch = useDebounce(search, 400);
   const navigate = useNavigation<NavigationProps>();
 
-  useEffect(() => {
-    setClients(clientsMock);
-  }, [clientsMock]);
+  const { clients, loading, deleteClient, reloadClients } = useClients();
 
   const filteredClients = useMemo(() => {
     if (!debouncedSearch.trim()) {
@@ -33,7 +29,7 @@ export default function HomeScreen() {
       return clients;
     }
     setIsSearching(true);
-    setTimeout(() => setIsSearching(false), 400); // Simula o tempo de busca apenas coloquei para teste
+    setTimeout(() => setIsSearching(false), 400);
 
     return clients.filter(client => {
       const searchTerm = removeAccents(debouncedSearch.toLowerCase());
@@ -50,14 +46,60 @@ export default function HomeScreen() {
     }
   }, [search, debouncedSearch]);
 
-  const handleDeleteClient = (clientId: string) => {
-    setClients(prevClients =>
-      prevClients.filter(client => client.id !== clientId),
+  const handleDeleteClient = async (clientId: string) => {
+    Alert.alert(
+      'Confirmar exclusão',
+      'Tem certeza que deseja excluir este cliente?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteClient(clientId); // Isso vai atualizar o contexto automaticamente
+              Alert.alert('Sucesso', 'Cliente excluído com sucesso!');
+            } catch (error) {
+              console.error('Erro ao excluir cliente:', error);
+              Alert.alert('Erro', 'Não foi possível excluir o cliente');
+            }
+          },
+        },
+      ]
     );
   };
-  const handleCreateClient = () => {
+
+  const handleNavigateToCreateClient = () => {
     navigate.navigate('RegisterClients');
   };
+
+  const handleReloadClients = async () => {
+    try {
+      await reloadClients();
+      Alert.alert('Info', 'Lista recarregada!');
+      setSearch('');
+    } catch (error) {
+      console.error('Erro ao recarregar clientes:', error);
+      Alert.alert('Erro', 'Não foi possível recarregar a lista de clientes');
+    }
+  };
+
+  if (loading || isSearching) {
+    return (
+      <View style={styles.container}>
+        <Header title="Clientes" />
+        <TextInput
+          style={styles.search}
+          placeholder="Buscar por nome ou CPF/CNPJ"
+          value={search}
+          onChangeText={setSearch}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Loading />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -73,18 +115,18 @@ export default function HomeScreen() {
       <View style={styles.buttonContainer}>
         <Button
           title="Adicionar Cliente"
-          icon="people"
-          onPress={handleCreateClient}
+          icon="person-add"
+          onPress={handleNavigateToCreateClient}
           variant="primary"
         />
         <Button
           title="Recarregar Lista"
           icon="refresh"
-          onPress={() => {}}
+          onPress={handleReloadClients}
           variant="secondary"
         />
       </View>
-      {isSearching && <Loading />}
+
       <FlashList
         keyExtractor={item => item.id}
         data={filteredClients}
@@ -92,7 +134,6 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <ClientCard
             client={item}
-            onPress={() => {}}
             onDelete={() => handleDeleteClient(item.id)}
           />
         )}
@@ -101,6 +142,7 @@ export default function HomeScreen() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

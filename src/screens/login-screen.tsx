@@ -8,6 +8,7 @@ import { Button } from '../components/button';
 import { Loading } from '../components/loading';
 import { useAuth } from '../hooks/useAuth';
 import { LoginFormData, loginSchema } from '../schemas/login-schema';
+import Logo from '../../assets/logo-main.jpg';
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -35,7 +36,7 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/logo-main.jpg')}
+        source={Logo}
         style={{
           width: 100,
           height: 100,
@@ -75,7 +76,7 @@ export default function LoginScreen() {
       {loading ? (
         <Loading />
       ) : (
-        <Button title="Entrar" onPress={handleSubmit(onSubmit)} />
+        <Button title="Entrar" onPress={handleSubmit(onSubmit)} disabled={loading} />
       )}
     </View>
   );

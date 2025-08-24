@@ -16,7 +16,7 @@
 3. Tela de Criação de Cliente
    [x] Campos obrigatórios: Nome, CPF/CNPJ, Idade/Data Fundação,
    Renda Mensal
-   [] Ao salvar, o cliente deve aparecer na listagem
+   [x] Ao salvar, o cliente deve aparecer na listagem
 
 4. Tela de Atualização de Cliente
    [] Edição dos campos: Nome, Idade/Data de Fundação, Renda Mensal

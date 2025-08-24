@@ -69,11 +69,4 @@ export function formatCurrencyInput(value: string): string {
   });
   return `R$ ${formattedValue}`;
 }
-/**
- * Verifica se o documento é CNPJ
- * @param document - Documento a ser verificado
- * @returns true se for CNPJ
- */
-export function isCNPJ(document: string): boolean {
-  return cnpjRegex.test(document);
-}
+

@@ -11,6 +11,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { theme } from './src/theme/theme';
 import RegisterClientScreen from './src/screens/register-screen';
 import { RootStackParamList, TabParamList } from './src/@types/navigation';
+import { ClientsProvider } from './src/contexts/clientContext';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -95,12 +96,14 @@ function Routes() {
   );
 }
 
-export default function App() {
+export default function App() { 
   return (
     <AuthProvider>
+      <ClientsProvider>
       <NavigationContainer>
         <Routes />
       </NavigationContainer>
+      </ClientsProvider>
     </AuthProvider>
   );
 }
