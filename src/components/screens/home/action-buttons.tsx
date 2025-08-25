@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet,View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Button } from '../../button';
-
-
 
 interface ActionButtonsProps {
   onAddClient: () => void;
@@ -11,10 +9,10 @@ interface ActionButtonsProps {
   loading?: boolean;
 }
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({ 
-  onAddClient, 
-  onReloadClients, 
-  loading = false 
+export const ActionButtons: React.FC<ActionButtonsProps> = ({
+  onAddClient,
+  onReloadClients,
+  loading = false,
 }) => (
   <View style={styles.container}>
     <Button

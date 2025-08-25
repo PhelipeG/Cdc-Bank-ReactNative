@@ -93,3 +93,12 @@ export function isValidDate(dateString: string): boolean {
     year <= new Date().getFullYear()
   );
 }
+/**
+ * Verifica se um documento é um CNPJ válido
+ * @param document - Documento a ser verificado
+ * @returns (boolean) true se o documento for um CNPJ válido, false caso contrário
+ */
+export function isCNPJ(document: string): boolean {
+  const cleanDoc = document.replace(/\D/g, '');
+  return cleanDoc.length === 14;
+}

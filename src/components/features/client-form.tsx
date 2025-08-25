@@ -1,43 +1,67 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
-import { Controller,useForm } from 'react-hook-form';
-import { StyleSheet,Text, View } from 'react-native';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { ClientFormData, clientSchema } from '../../schemas/client-schema';
 import { theme } from '../../theme/theme';
-import { formatCurrencyInput, formatDateInput, formatDocumentInput } from '../../utils/utils';
+import {
+  formatCurrencyInput,
+  formatDateInput,
+  formatDocumentInput,
+  isCNPJ,
+} from '../../utils/utils';
 import { Button } from '../button';
 import { Input } from '../input';
 
 interface ClientFormProps {
   onSubmit: (data: ClientFormData) => void;
+  initialData?: Partial<ClientFormData>;
   loading?: boolean;
+  isEditing?: boolean;
 }
 
-export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
+export const ClientForm = ({
+  onSubmit,
+  loading = false,
+  isEditing = false,
+  initialData,
+}: ClientFormProps) => {
   const {
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ClientFormData>({
     resolver: zodResolver(clientSchema),
     defaultValues: {
-      name: '',
-      document: '',
-      birthDate: '',
-      monthlyIncome: '',
+      name: initialData?.name || '',
+      document: initialData?.document || '',
+      ageOrFoundationDate: initialData?.ageOrFoundationDate || '',
+      monthlyIncome: initialData?.monthlyIncome || '',
     },
   });
+  const document = watch('document');
+  const isCompany = isCNPJ(document || '');
+
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData);
+    }
+  }, [initialData, reset]);
+
   const handleClientFormSubmit = async (data: ClientFormData) => {
     try {
-      await onSubmit(data);
-      reset({
-        name: '',
-        document: '',
-        birthDate: '',
-        monthlyIncome: '',
-      });
+      onSubmit(data);
+      if (!isEditing) {
+        reset({
+          name: '',
+          document: '',
+          ageOrFoundationDate: '',
+          monthlyIncome: '',
+        });
+      }
     } catch (error) {
       console.error('Erro ao enviar formulário:', error);
     }
@@ -45,7 +69,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Cliente</Text>
+      <Text style={styles.title}>{isEditing ? 'Editar Cliente' : 'Cadastrar Cliente'}</Text>
 
       <View style={styles.field}>
         <Controller
@@ -66,7 +90,12 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             <Input
               placeholder="CPF ou CNPJ"
               value={value}
+              editable={!isEditing}
+              style={isEditing ? styles.disabledInput : undefined}
               onChangeText={(text) => {
+                if (!isEditing) {
+                  return;
+                }
                 const formatted = formatDocumentInput(text);
                 onChange(formatted);
               }}
@@ -81,10 +110,12 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
       <View style={styles.field}>
         <Controller
           control={control}
-          name="birthDate"
+          name="ageOrFoundationDate"
           render={({ field: { onChange, value } }) => (
             <Input
-              placeholder="Data de nascimento (DD/MM/AAAA)"
+              placeholder={
+                isCompany ? 'Data de Fundação (DD/MM/AAAA)' : 'Data de Nascimento (DD/MM/AAAA)'
+              }
               value={value}
               onChangeText={(text) => {
                 const formatted = formatDateInput(text);
@@ -95,7 +126,9 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
             />
           )}
         />
-        {errors.birthDate && <Text style={styles.error}>{errors.birthDate.message}</Text>}
+        {errors.ageOrFoundationDate && (
+          <Text style={styles.error}>{errors.ageOrFoundationDate.message}</Text>
+        )}
       </View>
 
       <View style={styles.field}>
@@ -104,7 +137,7 @@ export const ClientForm = ({ onSubmit, loading = false }: ClientFormProps) => {
           name="monthlyIncome"
           render={({ field: { onChange, value } }) => (
             <Input
-              placeholder="Renda mensal"
+              placeholder={isCompany ? 'Receita Mensal (R$)' : 'Renda mensal (R$)'}
               value={value}
               onChangeText={(text) => {
                 const formatted = formatCurrencyInput(text);
@@ -145,5 +178,12 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.sm,
     marginTop: theme.spacing.xs,
     marginLeft: theme.spacing.xs,
+  },
+  disabledInput: {
+    backgroundColor: theme.colors.textLight,
+    borderWidth: 2,
+    borderColor: theme.colors.disabledColor,
+    color: theme.colors.textDark,
+    opacity: 0.6,
   },
 });

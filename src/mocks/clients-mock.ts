@@ -1,108 +1,147 @@
 import { Client } from '../models/client';
 
 export const clientsMock: Client[] = [
+  // ✅ PESSOAS FÍSICAS - com idades reais
   {
     id: '1',
     name: 'João Silva',
     document: '123.456.789-00',
+    ageOrFoundationDate: '15/03/1991', // 32 anos
+    monthlyIncome: 3000.00,
     balance: 1500.75,
-    income: 3000,
-    age: 32,
+    createdAt: '2024-01-15T10:00:00.000Z',
+    updatedAt: '2024-01-15T10:00:00.000Z',
   },
   {
     id: '2',
     name: 'Maria Oliveira',
     document: '987.654.321-00',
-    balance: 500.2,
-    income: 2500,
-    age: 27,
-  },
-  {
-    id: '3',
-    name: 'Empresa XPTO LTDA',
-    document: '12.345.678/0001-99',
-    balance: 12000,
-    income: 8000,
-    age: 10,
+    ageOrFoundationDate: '22/08/1996', // 27 anos
+    monthlyIncome: 2500.00,
+    balance: 500.20,
+    createdAt: '2024-01-16T10:00:00.000Z',
+    updatedAt: '2024-01-16T10:00:00.000Z',
   },
   {
     id: '4',
     name: 'Ana Souza',
     document: '321.654.987-00',
-    balance: 2500.5,
-    income: 4000,
-    age: 30,
+    ageOrFoundationDate: '10/12/1993', // 30 anos
+    monthlyIncome: 4000.00,
+    balance: 2500.50,
+    createdAt: '2024-01-18T10:00:00.000Z',
+    updatedAt: '2024-01-18T10:00:00.000Z',
   },
   {
     id: '5',
     name: 'Carlos Pereira',
-    document: '654.321.987-00',
-    balance: 8000,
-    income: 5000,
-    age: 45,
+    document: '654.321.987-01',
+    ageOrFoundationDate: '05/07/1978', // 45 anos
+    monthlyIncome: 5000.00,
+    balance: 8000.00,
+    createdAt: '2024-01-19T10:00:00.000Z',
+    updatedAt: '2024-01-19T10:00:00.000Z',
+  },
+  {
+    id: '7',
+    name: 'Lucas Martins',
+    document: '147.258.369-00',
+    ageOrFoundationDate: '30/11/1995', // 28 anos
+    monthlyIncome: 2000.00,
+    balance: 1000.00,
+    createdAt: '2024-01-21T10:00:00.000Z',
+    updatedAt: '2024-01-21T10:00:00.000Z',
+  },
+  {
+    id: '8',
+    name: 'Patrícia Lima',
+    document: '951.753.846-00',
+    ageOrFoundationDate: '18/04/1983', // 40 anos
+    monthlyIncome: 3500.00,
+    balance: 4500.00,
+    createdAt: '2024-01-22T10:00:00.000Z',
+    updatedAt: '2024-01-22T10:00:00.000Z',
+  },
+  {
+    id: '10',
+    name: 'Mariana Fernandes',
+    document: '753.951.846-00',
+    ageOrFoundationDate: '25/09/1988', // 35 anos
+    monthlyIncome: 4200.00,
+    balance: 3200.00,
+    createdAt: '2024-01-24T10:00:00.000Z',
+    updatedAt: '2024-01-24T10:00:00.000Z',
+  },
+  {
+    id: '11',
+    name: 'Roberto Santos',
+    document: '456.789.123-00',
+    ageOrFoundationDate: '12/01/1990', // 34 anos
+    monthlyIncome: 3800.00,
+    balance: 2200.00,
+    createdAt: '2024-01-25T10:00:00.000Z',
+    updatedAt: '2024-01-25T10:00:00.000Z',
+  },
+  {
+    id: '12',
+    name: 'Fernanda Costa',
+    document: '852.963.741-00',
+    ageOrFoundationDate: '03/06/1985', // 38 anos
+    monthlyIncome: 4500.00,
+    balance: 6700.00,
+    createdAt: '2024-01-26T10:00:00.000Z',
+    updatedAt: '2024-01-26T10:00:00.000Z',
+  },
+
+  // ✅ PESSOAS JURÍDICAS - com datas de fundação
+  {
+    id: '3',
+    name: 'Empresa XPTO LTDA',
+    document: '12.345.678/0001-99',
+    ageOrFoundationDate: '15/05/2014', // Fundada há 10 anos
+    monthlyIncome: 25000.00, // Receita mensal da empresa
+    balance: 12000.00,
+    createdAt: '2024-01-17T10:00:00.000Z',
+    updatedAt: '2024-01-17T10:00:00.000Z',
   },
   {
     id: '6',
     name: 'Empresa ABC ME',
     document: '98.765.432/0001-11',
-    balance: 30000,
-    income: 15000,
-    age: 5,
-  },
-  {
-    id: '7',
-    name: 'Lucas Martins',
-    document: '12.345.678-90',
-    balance: 1000,
-    income: 2000,
-    age: 28,
-  },
-  {
-    id: '8',
-    name: 'Patrícia Lima',
-    document: '98.765.432-10',
-    balance: 4500,
-    income: 3500,
-    age: 40,
+    ageOrFoundationDate: '10/03/2019', // Fundada há 5 anos
+    monthlyIncome: 45000.00,
+    balance: 30000.00,
+    createdAt: '2024-01-20T10:00:00.000Z',
+    updatedAt: '2024-01-20T10:00:00.000Z',
   },
   {
     id: '9',
     name: 'Empresa DEF LTDA',
     document: '23.456.789/0001-88',
-    balance: 22000,
-    income: 12000,
-    age: 8,
-  },
-  {
-    id: '10',
-    name: 'Mariana Fernandes',
-    document: '56.789.123-45',
-    balance: 3200,
-    income: 4200,
-    age: 35,
-  },
-  {
-    id: '11',
-    name: 'Carlos Silva',
-    document: '12.345.678-90',
-    balance: 1500,
-    income: 3000,
-    age: 28,
-  },
-  {
-    id: '12',
-    name: 'Fernanda Lima',
-    document: '98.765.432-21',
-    balance: 4500,
-    income: 3500,
-    age: 40,
+    ageOrFoundationDate: '22/11/2016', // Fundada há 8 anos
+    monthlyIncome: 35000.00,
+    balance: 22000.00,
+    createdAt: '2024-01-23T10:00:00.000Z',
+    updatedAt: '2024-01-23T10:00:00.000Z',
   },
   {
     id: '13',
-    name: 'Roberto Carlos',
-    document: '12.345.678-90',
-    balance: 1500,
-    income: 3000,
-    age: 28,
+    name: 'Tech Solutions LTDA',
+    document: '11.222.333/0001-44',
+    ageOrFoundationDate: '08/07/2020', // Fundada há 4 anos
+    monthlyIncome: 18000.00,
+    balance: 15500.00,
+    createdAt: '2024-01-27T10:00:00.000Z',
+    updatedAt: '2024-01-27T10:00:00.000Z',
+  },
+  {
+    id: '14',
+    name: 'Comércio Brasil ME',
+    document: '44.555.666/0001-77',
+    ageOrFoundationDate: '30/01/2018', // Fundada há 6 anos
+    monthlyIncome: 28000.00,
+    balance: 18900.00,
+    createdAt: '2024-01-28T10:00:00.000Z',
+    updatedAt: '2024-01-28T10:00:00.000Z',
   },
 ];

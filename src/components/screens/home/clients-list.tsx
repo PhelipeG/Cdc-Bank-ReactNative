@@ -27,8 +27,6 @@ export const ClientsList: React.FC<ClientsListProps> = ({
     estimatedItemSize={estimatedItemSize}
     renderItem={renderItem}
     showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-    refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }
+    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
   />
 );

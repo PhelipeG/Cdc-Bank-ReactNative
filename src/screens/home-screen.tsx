@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import {  StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ClientCard } from '../components/features/client-card';
 import { Header } from '../components/layout/header';
@@ -34,13 +34,7 @@ export default function HomeScreen() {
     [handleDeleteClient, handleEditClient],
   );
   if (loading || isSearching) {
-    return(
-       <LoadingView 
-        search={searchTerm} 
-        onSearchChange={setSearchTerm} 
-        title="Clientes"
-      />
-    )
+    return <LoadingView search={searchTerm} onSearchChange={setSearchTerm} title="Clientes" />;
   }
 
   return (

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { cnpjRegex, cpfRegex, isValidDate } from '../utils/utils';
+import { isValidDate } from '../utils/utils';
 
 export const clientSchema = z.object({
   name: z
@@ -11,11 +11,15 @@ export const clientSchema = z.object({
       message: 'Nome é obrigatório',
     }),
 
-  document: z.string().refine((val) => cpfRegex.test(val) || cnpjRegex.test(val), {
-    message: 'CPF ou CNPJ inválido',
-  }),
+  document: z
+    .string()
+    .min(1, 'Documento é obrigatório')
+    .refine((doc) => {
+      const clean = doc.replace(/\D/g, '');
+      return clean.length === 11 || clean.length === 14;
+    }, 'CPF deve ter 11 dígitos ou CNPJ 14 dígitos'),
 
-  birthDate: z
+  ageOrFoundationDate: z
     .string()
     .min(1, 'Data é obrigatória para cadastro')
     .regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Use o formato DD/MM/AAAA')

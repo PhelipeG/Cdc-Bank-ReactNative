@@ -19,7 +19,7 @@
    [x] Ao salvar, o cliente deve aparecer na listagem
 
 4. Tela de Atualização de Cliente[x]
-   [] Edição dos campos: Nome, Idade/Data de Fundação, Renda Mensal
+   [x] Edição dos campos: Nome, Idade/Data de Fundação, Renda Mensal
    [X] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
    Renda Mensal)
 
@@ -35,11 +35,11 @@
 [x] React Native com TypeScript
 [x] Navegação com React Navigation (Stack + Bottom Tabs ou Drawer)
 [x] Gerenciamento de estado com Context API ou Redux Toolkit
-[ ] (Opcional) Consumo de API com Axios ou Fetch
+[-] (Opcional) Consumo de API com Axios ou Fetch(ultilizaçao de mock api local)
 [x] Estilização com StyleSheet ou Tailwind RN
 [x] Persistência com AsyncStorage
-[-] Componentes funcionais e uso adequado de Hooks
+[x] Componentes funcionais e uso adequado de Hooks
 [ ] (Opcional) Testes com Jest e React Native Testing Library
-[x] Eslint e Prettier configurados com configuraçoes usadas por grandes empresas 
+[x] Eslint e Prettier configurados com configuraçoes usadas por grandes empresas
 [x] Refatoraçao de Components e Logicas
 [x] Mudanças de UI

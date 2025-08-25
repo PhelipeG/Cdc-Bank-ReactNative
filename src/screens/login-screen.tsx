@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { Controller,useForm } from 'react-hook-form';
-import { Alert,Image, StyleSheet, Text, View } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 
 import Logo from '../../assets/logo-main.jpg';
 import { Button } from '../components/button';

@@ -1,4 +1,3 @@
-
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
@@ -11,7 +10,7 @@ import tseslint from 'typescript-eslint';
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  prettier, 
+  prettier,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {

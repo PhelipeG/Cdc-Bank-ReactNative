@@ -7,6 +7,7 @@ export const theme = {
     danger: '#D00000',
     success: '#27ae60',
     secondary: '#6c757d',
+    disabledColor: '#999',
   },
   spacing: {
     xs: 4,

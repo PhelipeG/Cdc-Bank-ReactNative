@@ -4,18 +4,17 @@ import { StyleSheet, TextInputProps } from 'react-native';
 import { theme } from '../../../theme/theme';
 import { Input } from '../../input';
 
-
 interface SearchInputProps extends Omit<TextInputProps, 'style'> {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
 }
 
-export const SearchInput: React.FC<SearchInputProps> = ({ 
-  value, 
+export const SearchInput: React.FC<SearchInputProps> = ({
+  value,
   onChangeText,
   placeholder = 'Buscar por nome ou CPF/CNPJ',
-  ...props 
+  ...props
 }) => (
   <Input
     style={styles.search}

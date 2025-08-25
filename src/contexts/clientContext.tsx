@@ -54,7 +54,7 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
         id: Date.now().toString(),
         name: data.name,
         document: data.document,
-        ageOrFoundationDate: data.birthDate,
+        ageOrFoundationDate: data.ageOrFoundationDate,
         monthlyIncome: parseFloat(data.monthlyIncome.replace(/[^\d,]/g, '').replace(',', '.')),
         balance: 0,
         createdAt: now,
@@ -92,7 +92,7 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
             return {
               ...client,
               name: data.name,
-              ageOrFoundationDate: data.birthDate,
+              ageOrFoundationDate: data.ageOrFoundationDate,
               monthlyIncome: parseFloat(
                 data.monthlyIncome.replace(/[^\d,]/g, '').replace(',', '.'),
               ),
