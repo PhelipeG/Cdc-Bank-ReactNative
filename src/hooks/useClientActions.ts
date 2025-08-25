@@ -37,14 +37,12 @@ export const useClientActions = () => {
     },
     [deleteClient],
   );
-
   const handleEditClient = useCallback(
     (clientId: string) => {
       navigation.navigate('EditClient', { clientId });
     },
     [navigation],
   );
-
   const handleNavigateToCreateClient = useCallback(() => {
     navigation.navigate('RegisterClients');
   }, [navigation]);

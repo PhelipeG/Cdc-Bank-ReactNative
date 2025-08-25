@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, useEffect, useState } from 'react';
 
 import { clientsMock } from '../mocks/clients-mock';
@@ -11,6 +12,12 @@ interface ClientContextType {
   deleteClient: (id: string) => Promise<void>;
   reloadClients: () => Promise<void>;
   updateClient: (id: string, data: ClientFormData) => Promise<void>;
+  transferFunds: (
+    fromClientId: string,
+    toClientId: string,
+    amount: number,
+    description?: string,
+  ) => Promise<void>;
 }
 
 export const ClientContext = createContext<ClientContextType>({} as ClientContextType);
@@ -42,7 +49,6 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
       setLoading(false);
     }
   };
-
   const addClient = async (data: ClientFormData): Promise<void> => {
     setLoading(true);
 
@@ -68,7 +74,6 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
       setLoading(false);
     }
   };
-
   const deleteClient = async (id: string): Promise<void> => {
     setLoading(true);
 
@@ -109,6 +114,56 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
       setLoading(false);
     }
   };
+  const transferFunds = async (
+    fromClientId: string,
+    toClientId: string,
+    amount: number,
+    description: string = 'Transferência entre contas',
+  ): Promise<void> => {
+    setLoading(true);
+    try {
+      const fromClient = clients.find((client) => client.id === fromClientId);
+      const toClient = clients.find((client) => client.id === toClientId);
+
+      if (!fromClient || !toClient) {
+        throw new Error('Cliente não encontrado');
+      }
+
+      if (fromClient.balance < amount) {
+        throw new Error('Saldo insuficiente');
+      }
+
+      if (amount <= 0) {
+        throw new Error('Valor deve ser maior que zero');
+      }
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      const now = new Date().toISOString();
+
+      const updateCliets = clients.map((client) => {
+          if (client.id === fromClientId) {
+            return {
+              ...client,
+              balance: client.balance - amount,
+              updatedAt: now,
+            };
+          }
+          if (client.id === toClientId) {
+            return {
+              ...client,
+              balance: client.balance + amount,
+              updatedAt: now,
+            };
+          }
+          return client;
+        });
+        setClients(updateCliets)
+    } catch (error) {
+      console.error('Erro ao transferir fundos:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ClientContext.Provider
@@ -119,6 +174,7 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
         deleteClient,
         reloadClients,
         updateClient,
+        transferFunds,
       }}
     >
       {children}

@@ -23,12 +23,14 @@
    [X] Botão para editar dados do cliente (Nome, Idade/Data Fundação,
    Renda Mensal)
 
-5. Transações entre Contas [x]
-   [] Selecionar cliente de origem e cliente de destino (ambos do mesmo
+5. Transações entre Contas [x] (outra branch)
+   [x] Selecionar cliente de origem e cliente de destino (ambos do mesmo
    parceiro)
-   [] Inserir valor da transferência
-   [] Validar se o cliente origem possui saldo suficiente
-   [] Realizar a transferência e atualizar os saldos
+   [x] Inserir valor da transferência
+   [x] Validar se o cliente origem possui saldo suficiente
+   [x] Realizar a transferência e atualizar os saldos
+   []  Refatoraçao da Transfer Screen e components
+   []  Hooks Personalizados
 
 ⚖️ Requisitos Técnicos
 
