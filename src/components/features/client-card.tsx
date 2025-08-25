@@ -42,11 +42,12 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     marginHorizontal: 10,
-    padding: 8,
+    padding: 16,
     borderRadius: 16,
-    marginBottom: 16,
+    marginBottom: 12,
     shadowRadius: 8,
     elevation: 3,
+    minHeight: 120,
   },
   row: {
     textAlign: 'left',

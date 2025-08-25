@@ -1,6 +1,5 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list';
-import React from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, StyleSheet } from 'react-native';
 
 import { Client } from '../../../models/client';
 
@@ -27,6 +26,12 @@ export const ClientsList: React.FC<ClientsListProps> = ({
     estimatedItemSize={estimatedItemSize}
     renderItem={renderItem}
     showsVerticalScrollIndicator={showsVerticalScrollIndicator}
+    contentContainerStyle={styles.listContent}
     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
   />
 );
+const styles = StyleSheet.create({
+  listContent: {
+    paddingBottom: 120,
+  },
+});
