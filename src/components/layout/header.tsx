@@ -1,9 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { Alert, SafeAreaView,StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { useAuth } from '../hooks/useAuth';
-import { theme } from '../theme/theme';
+import { useAuth } from '../../hooks/useAuth';
+import { theme } from '../../theme/theme';
 
 interface HeaderProps {
   title: string;

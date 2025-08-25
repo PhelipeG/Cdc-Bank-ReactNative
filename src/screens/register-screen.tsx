@@ -4,7 +4,7 @@ import { Alert,StyleSheet, View } from 'react-native';
 
 import { TabParamList } from '../@types/navigation';
 import { ClientForm } from '../components/features/client-form';
-import { Header } from '../components/header';
+import { Header } from '../components/layout/header';
 import { useClients } from '../hooks/useClients';
 import { ClientFormData } from '../schemas/client-schema';
 

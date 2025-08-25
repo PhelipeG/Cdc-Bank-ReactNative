@@ -6,6 +6,7 @@ export const theme = {
     textLight: '#FFFFFF',
     danger: '#D00000',
     success: '#27ae60',
+    secondary: '#6c757d',
   },
   spacing: {
     xs: 4,

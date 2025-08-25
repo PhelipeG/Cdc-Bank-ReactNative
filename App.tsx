@@ -22,6 +22,7 @@ function AppTabs() {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
+          backgroundColor: theme.colors.primary,
           position: 'absolute',
           borderTopWidth: 1,
           borderTopLeftRadius: 20,
@@ -39,9 +40,12 @@ function AppTabs() {
           margin: 20,
         },
         tabBarLabelStyle: {
+          color: theme.colors.textLight,
           fontSize: theme.fontSize.sm,
           marginBottom: 4,
         },
+        tabBarActiveTintColor: theme.colors.textLight,
+        tabBarInactiveTintColor: theme.colors.secondary,
         headerShown: false,
       }}
     >

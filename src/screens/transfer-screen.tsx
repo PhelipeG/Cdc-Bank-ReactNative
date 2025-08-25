@@ -1,6 +1,8 @@
 import { View } from 'react-native';
 
-import { Header } from '../components/header';
+import { Header } from '../components/layout/header';
+
+
 
 export default function TransferScreen() {
   return (

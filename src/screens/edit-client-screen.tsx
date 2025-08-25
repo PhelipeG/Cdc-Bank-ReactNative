@@ -2,7 +2,9 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 
 import { RootStackParamList } from '../@types/navigation';
-import { Header } from '../components/header';
+import { Header } from '../components/layout/header';
+
+
 
 type EditClientRouteProp = RouteProp<RootStackParamList, 'EditClient'>;
 
