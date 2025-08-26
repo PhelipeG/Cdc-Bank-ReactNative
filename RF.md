@@ -41,7 +41,7 @@
 [x] Estilização com StyleSheet ou Tailwind RN
 [x] Persistência com AsyncStorage
 [x] Componentes funcionais e uso adequado de Hooks
-[ ] (Opcional) Testes com Jest e React Native Testing Library
+[x] (Opcional) Testes com Jest e React Native Testing Library
 [x] Eslint e Prettier configurados com configuraçoes usadas por grandes empresas
 [x] Refatoraçao de Components e Logicas
 [x] Mudanças de UI
