@@ -160,10 +160,10 @@ npm run test:coverage
 
 ### **Estrutura do Projeto**
 
-```
+### ** Decisoes de Arquitetura **
+
  Decisao de arquitetura -> montei uma arquitetura que separa bem as responsabilidades , ultiliza bem hooks customizados para separar a logica da UI , facil de uma boa manutençao e teste para cada
  componente, hook , telas , funçoes ultilitarias, contextos , serviços e modelos.Ela se baseia em uma arquitetura hibrida e limpa , onde separo tudo por features , responsabilidades unica em cada arquivo, bem particionada para melhor testabilidade e reutilizaçao  como o exemplo de components e schemas de validaçao.Para app em produçao bancaria visa ser uma otima arquitetura pois traz uma boa separaçao de camadas e type safe em toda aplicaçao.
-```
 
 ```
 📦 src/
