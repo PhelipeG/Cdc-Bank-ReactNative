@@ -86,6 +86,7 @@ export const useTransferForm = () => {
   ]);
 
   return {
+    clearForm,
     clients,
     fromClientId,
     setFromClientId,
