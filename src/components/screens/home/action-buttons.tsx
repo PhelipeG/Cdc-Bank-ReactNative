@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 10,
-    gap: 10, // Espaçamento entre botões
+    gap: 10,
   },
 });

@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity,View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { theme } from '../../../theme/theme';
 
@@ -8,37 +8,22 @@ interface EmptyClientsProps {
   onCreateClient?: () => void;
 }
 
-export const EmptyClients: React.FC<EmptyClientsProps> = ({
-  onCreateClient,
-}) => {
+export const EmptyClients: React.FC<EmptyClientsProps> = ({ onCreateClient }) => {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <MaterialIcons 
-          name="people-outline" 
-          size={80} 
-          color={theme.colors.primary}
-        />
+        <MaterialIcons name="people-outline" size={80} color={theme.colors.primary} />
       </View>
-      
+
       <Text style={styles.title}>Nenhum cliente cadastrado</Text>
       <Text style={styles.message}>
         Você ainda não possui clientes cadastrados.{'\n'}
         Que tal adicionar o primeiro?
       </Text>
-      
+
       {onCreateClient && (
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={onCreateClient}
-          activeOpacity={0.7}
-        >
-          <MaterialIcons 
-            name="person-add" 
-            size={20} 
-            color="#fff" 
-            style={styles.buttonIcon}
-          />
+        <TouchableOpacity style={styles.button} onPress={onCreateClient} activeOpacity={0.7}>
+          <MaterialIcons name="person-add" size={20} color="#fff" style={styles.buttonIcon} />
           <Text style={styles.buttonText}>Cadastrar Primeiro Cliente</Text>
         </TouchableOpacity>
       )}

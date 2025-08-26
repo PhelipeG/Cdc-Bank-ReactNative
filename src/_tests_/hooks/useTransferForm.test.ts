@@ -46,9 +46,9 @@ describe('useTransferForm Hook', () => {
       clients: mockClients,
       transferFunds: mockTransferFunds,
       loading: false,
-      });
     });
-  
+  });
+
   it('deve retornar a lista de clientes', () => {
     const { result } = renderHook(() => useTransferForm());
     expect(result.current.clients).toEqual(mockClients);
@@ -91,7 +91,7 @@ describe('useTransferForm Hook', () => {
     );
     expect(mockTransferFunds).not.toHaveBeenCalled();
   });
-  it("deve realizar a transferência com sucesso", async () => {
+  it('deve realizar a transferência com sucesso', async () => {
     mockTransferFunds.mockResolvedValue(undefined);
     const { result } = renderHook(() => useTransferForm());
 
@@ -111,35 +111,36 @@ describe('useTransferForm Hook', () => {
     await act(async () => {
       await result.current.handleTransfer();
     });
-       const alertCalls = (Alert.alert as jest.Mock).mock.calls;
-    
+    const alertCalls = (Alert.alert as jest.Mock).mock.calls;
+
     if (alertCalls.length > 0) {
       const [title, mensagem, botoes] = alertCalls[0];
       console.log('🎯 PRIMEIRA CHAMADA DO ALERT:', { title, mensagem, temBotoes: !!botoes });
-      
+
       if (title === 'Confirmar Transferência' && botoes) {
         console.log('✅ MOSTRANDO CONFIRMAÇÃO - Simulando confirmação...');
-        
+
         jest.clearAllMocks();
         mockTransferFunds.mockResolvedValue(undefined);
-        
+
         // Encontrar e executar botão de confirmar
-        const confirmButton = botoes.find((btn: { text: string; }) => btn.text === 'Confirmar' || btn.text === 'Sim');
+        const confirmButton = botoes.find(
+          (btn: { text: string }) => btn.text === 'Confirmar' || btn.text === 'Sim',
+        );
         if (confirmButton) {
           await act(async () => {
             await confirmButton.onPress();
           });
         }
         expect(mockTransferFunds).toHaveBeenCalled();
-        
+
         expect(Alert.alert).toHaveBeenCalledWith(
           'Sucesso!',
-          'Transferência realizada com sucesso!'
+          'Transferência realizada com sucesso!',
         );
       } else {
         console.log('❌ NÃO É CONFIRMAÇÃO:', { title, mensagem });
       }
     }
   });
-
 });

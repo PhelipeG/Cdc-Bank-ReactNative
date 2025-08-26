@@ -1,4 +1,12 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { 
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView, 
+  StyleSheet, 
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import { Header } from '../components/layout/header';
 import {
@@ -38,40 +46,51 @@ export default function TransferScreen() {
   return (
     <View style={styles.container}>
       <Header title="Transferência" />
-      <ScrollView
-        style={styles.content}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
+      <KeyboardAvoidingView 
+        style={styles.keyboardContainer} 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ClientPicker
-          label="Cliente de Origem *"
-          placeholder="Selecione um cliente"
-          clients={clients}
-          selectedClientId={fromClientId}
-          onSelect={setFromClientId}
-          showBalance={true}
-          selectedClient={fromClient}
-          enabled={true}
-        />
-        <ClientPicker
-          label="Cliente de Destino *"
-          placeholder="Selecione um cliente"
-          clients={availableDestinations}
-          selectedClientId={toClientId}
-          onSelect={setToClientId}
-          showBalance={false}
-          selectedClient={toClient}
-        />
-        <TransferAmountInput value={transferAmount} onChangeText={setTransferAmount} />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView
+            style={styles.content}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            bounces={false}
+          >
+            <ClientPicker
+              label="Cliente de Origem *"
+              placeholder="Selecione um cliente"
+              clients={clients}
+              selectedClientId={fromClientId}
+              onSelect={setFromClientId}
+              showBalance={true}
+              selectedClient={fromClient}
+              enabled={true}
+            />
+            <ClientPicker
+              label="Cliente de Destino *"
+              placeholder="Selecione um cliente"
+              clients={availableDestinations}
+              selectedClientId={toClientId}
+              onSelect={setToClientId}
+              showBalance={false}
+              selectedClient={toClient}
+            />
+            <TransferAmountInput value={transferAmount} onChangeText={setTransferAmount} />
 
-        <DescriptionInput value={description} onChangeText={setDescription} />
-        <TransferActions
-          onTransfer={handleTransfer}
-          loading={loading}
-          disabled={!fromClientId || !toClientId || !transferAmount}
-        />
-      </ScrollView>
+            <DescriptionInput value={description} onChangeText={setDescription} />
+            
+            <View style={styles.actionsContainer}>
+              <TransferActions
+                onTransfer={handleTransfer}
+                loading={loading}
+                disabled={!fromClientId || !toClientId || !transferAmount}
+              />
+            </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -80,11 +99,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  keyboardContainer: {
+    flex: 1,
+  },
   content: {
     flex: 1,
   },
   scrollContent: {
     padding: theme.spacing.md,
-    paddingBottom: 140,
+    paddingBottom: 100,
+  },
+  actionsContainer: {
+    marginTop: theme.spacing.lg,
+    paddingBottom: 20,
   },
 });

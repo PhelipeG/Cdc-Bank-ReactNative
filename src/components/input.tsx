@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
 import { theme } from '../theme/theme';
@@ -14,7 +13,7 @@ export const Input = ({ placeholder, ...props }: InputProps) => (
 export const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: theme.colors.primary, 
+    borderColor: theme.colors.primary,
     padding: theme.spacing.sm,
     borderRadius: 6,
     marginBottom: theme.spacing.sm,
