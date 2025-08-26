@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { theme } from '../theme/theme';
@@ -11,6 +10,7 @@ interface ButtonProps {
   iconPosition?: 'left' | 'right';
   variant?: 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
+  style?: object;
 }
 
 export const Button = ({

@@ -140,23 +140,23 @@ export const ClientsProvider = ({ children }: { children: React.ReactNode }) => 
       const now = new Date().toISOString();
 
       const updateCliets = clients.map((client) => {
-          if (client.id === fromClientId) {
-            return {
-              ...client,
-              balance: client.balance - amount,
-              updatedAt: now,
-            };
-          }
-          if (client.id === toClientId) {
-            return {
-              ...client,
-              balance: client.balance + amount,
-              updatedAt: now,
-            };
-          }
-          return client;
-        });
-        setClients(updateCliets)
+        if (client.id === fromClientId) {
+          return {
+            ...client,
+            balance: client.balance - amount,
+            updatedAt: now,
+          };
+        }
+        if (client.id === toClientId) {
+          return {
+            ...client,
+            balance: client.balance + amount,
+            updatedAt: now,
+          };
+        }
+        return client;
+      });
+      setClients(updateCliets);
     } catch (error) {
       console.error('Erro ao transferir fundos:', error);
       throw error;

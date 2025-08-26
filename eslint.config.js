@@ -34,7 +34,6 @@ export default [
       'react-hooks/rules-of-hooks': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
 
-
       // React Native
       'react-native/no-unused-styles': 'warn',
       'react-native/split-platform-components': 'warn',

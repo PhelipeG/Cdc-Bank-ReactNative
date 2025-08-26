@@ -3,7 +3,7 @@
 1. Tela de Login
    [x] Campos para e-mail e senha
    [x] Validação de e-mail válido e senha com pelo menos 6 caracteres
-   [x] Botão &quot;Entrar&quot;: simula login e navega para o painel do parceiro
+   [x] Botão Entrar : simula login e navega para o painel do parceiro
    [x] Utilizar AsyncStorage para simular sessão salva
    [x] Se o usuário estiver logado, ir direto para o painel ao abrir o app
 
@@ -29,8 +29,8 @@
    [x] Inserir valor da transferência
    [x] Validar se o cliente origem possui saldo suficiente
    [x] Realizar a transferência e atualizar os saldos
-   []  Refatoraçao da Transfer Screen e components
-   []  Hooks Personalizados
+   [x] Refatoraçao da Transfer Screen e components reutilizaveis para esta tela
+   [x] Hooks Personalizados
 
 ⚖️ Requisitos Técnicos
 
