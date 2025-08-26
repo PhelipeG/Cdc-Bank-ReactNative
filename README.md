@@ -23,15 +23,15 @@
   </p>
 </div>
 
-
 ## ✨ Features
 
 ### 🔐 **Autenticação**
+
 - Tela de login com validação
 - Persistência de sessão com AsyncStorage
-- Controle de acesso seguro
 
 ### 👥 **Gerenciamento de Clientes**
+
 - ✅ Listagem de clientes (Nome, CPF/CNPJ, Saldo)
 - 🔍 Pesquisa em tempo real por Nome ou Documento
 - ➕ Cadastro de novos clientes (PF/PJ)
@@ -40,6 +40,7 @@
 - 📊 Visualização de saldos e informações
 
 ### 💸 **Transferências**
+
 - 🏦 Transferências entre contas
 - 💰 Validação de saldo em tempo real
 - 📝 Histórico de transações
@@ -47,6 +48,7 @@
 - ✅ Confirmação de transferências
 
 ### 🎨 **Experiência do Usuário**
+
 - 🎯 Interface intuitiva e responsiva
 - ⚡ Loading states para feedback
 - 🚫 Estados vazios (Empty States)
@@ -62,47 +64,58 @@
   
   <img src="./assets/screenshots/login-screen.png" alt="Tela de Login" width="200">
   <img src="./assets/screenshots/home-screen.png" alt="Tela Principal" width="200">
+    <img src="./assets/screenshots/edit-screen.png" alt="Tela de Transferência" width="200">
   <img src="./assets/screenshots/client-form.png" alt="Formulário de Cliente" width="200">
   <img src="./assets/screenshots/transfer-screen.png" alt="Tela de Transferência" width="200">
   
-  <p><em>Da esquerda para direita: Login, Home, Cadastro de Cliente, Transferências</em></p>
+  <p><em>Da esquerda para direita: Login, Home, Editar Cliente ,Cadastro de Cliente, Transferências</em></p>
 </div>
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack / Decisoes Tecnicas
 
 ### **Core Technologies**
+
 - ⚛️ [**React Native**](https://reactnative.dev/) - Framework mobile multiplataforma
 - 📘 [**TypeScript**](https://www.typescriptlang.org/) - Superset JavaScript com tipagem estática
 - 📱 [**Expo SDK 53**](https://expo.dev/) - Plataforma para desenvolvimento React Native
 
-### **Navigation & UI**
+- (**React Native + Expo** é o framework recomendado pela equipe do React , multiplataforma , perfomatico com codigo nativo otimizado e traz mais velocidade do que desenvolvimento nativo ,ja aproveita que usa conceitos da react da web , javascript/ typescript , me traz ferramentas que ja agilizam meu desenvolvimento de apps como : Sdks prontas (Navigation com expo router , sqlite e async storage alem de deploys e atualizaçoes ota com Expo Updates.))
+
+### **Navigation**
+
 - 🧭 [**React Navigation v7**](https://reactnavigation.org/) - Stack + Bottom Tabs Navigation
 - 📋 [**@shopify/flash-list**](https://shopify.github.io/flash-list/) - Lista performática e otimizada
-- 🎨 **StyleSheet + Theme** - Estilização nativa com sistema de temas
+
+- (Usei **React Navigation** porque traz um padrao mobile nativo(ios/android), uma configuraçao ainda mais simples , leve , otimo em manter alguns estados durante a navegaçao,bom de fazer manutençao por causa do roteamento declarativo.**Shopify/Flashlist** brilha os olhos quando assunto é performance em listas grandes,em testes se saiu melhor do que flatlist do React Native, menos uso de memoria , menos lag de scroll, em algumas situaçoes com muitos itens traz mais fps em tela o que é importante , para apps bancarios perfomance e segurança sao pontos muito importantes ate mesmo para produçao.Visando futuro flashlist ainda mais perfomance com suporte a nova arquitetura.)
 
 ### **Forms & Validation**
+
 - 📝 [**React Hook Form**](https://react-hook-form.com/) - Gerenciamento de formulários
 - ✅ [**Zod**](https://zod.dev/) - Schema validation TypeScript-first
 
+- (Usei **React Hook Form** para usar nos components nao controlados e validar seus dados com zod , o objetivo era usar uma biblioteca leve com minimo de dependencias possivel, que trouxesse menos renders,uma validaçao client segura e com autocomplete , **zod** tem bundle leve chegando a uns 12kb por ai o que é muito bom para projeto final e que pode ir para produçao.Em ambiente real de produçao manteria as duas tecnologias pois app bancario precisaria de um controle de formularios eficiente, leve e seguro mantido pela comunidade) -[Link comparaçao React Hook Form vs Formik](https://refine.dev/blog/react-hook-form-vs-formik/#cons-of-formik)
+
 ### **State Management & Storage**
+
 - 🔄 [**Context API**](https://react.dev/reference/react/useContext) - Gerenciamento de estado global
 - 💾 [**AsyncStorage**](https://github.com/react-native-async-storage/async-storage) - Persistência local
 
-### **Development Tools**
+-(**Async Storage** usa uma api muito familiar , 0 configuraçoes, traz um bundle size menor , uma boa performance se comparado ao seu concorrente MMkV , traz segurança mediana para dados criticos como tokens de autenticaçao mas usado com outra ferramenta como cripto-js.Para ambiente de produçao nao acho ele tao robusto e seguro.**Context Api** ultilizei context api porque se tratava de um projeto pequeno com poucas telas , sem grande quantidade de dados para gerenciar, crud todo feito em memoria e me entregaria uma boa performance e nem precisaria de mais dependencias externas,zero bundle size e alguns elementos react para otimizaçao.Para ambiente em produçao visando perfomance , padrao de mercado , comunidade , curva de aprendizado rapida para equipes pois traz uma otima documentaçao eu usaria Zustand 100% em todo o projeto e uma segunda opçao seria redux mas o boilerplate dele é maior e nao vejo que traz tanta agilidade assim(opniao pessoal))
+
+### **Development Tools & Styles(UI) **
+
 - 🔧 [**ESLint**](https://eslint.org/) - Linting e padronização de código
 - 💅 [**Prettier**](https://prettier.io/) - Formatação automática de código
 - 🧪 [**Jest**](https://jestjs.io/) + [**Testing Library**](https://testing-library.com/) - Testes unitários
+- 🎨 [**StyleSheet + Theme**]() - Estilização nativa com sistema de temas customizado
 
-### **Custom Hooks**
-- 🎣 `useClients` - Gerenciamento de clientes
-- ⏱️ `useDebounce` - Debounce para pesquisas
-- 💸 `useTransferForm` - Lógica de transferências
-- 🔐 `useAuth` - Controle de autenticação
-- 🔍 `useClientSearch` - Pesquisa de clientes
+- (ultilizei **Eslint** e **Prettier** para linting,formataçao automatica integrada ao (vs code) e padrao de codigo,configurei ambos com opçoes mais usadas em algumas empresas para desenvolvimento,codigo mais organizado visualmente,padrao automatica de equipe,aviso de regras como a de hooks, variaveis nao usadas,organizaçao de imports e de estilos.Eslint e Prettier sao faceis de usar com o Expo, e impacto pequeno no bundle da aplicaçao por padrao de mercado e vantagens de um padrao de codigo e regras eu produçao eu manteria os dois e usaria para complementar o husky para validaçao de commits semanticos.)
 
----
+-(**Jest** e **Testing Library** foram escolhidos para criar uma suite de testes robusta focada no comportamento do usuário. **Jest** é o framework de testes padrão do React Native, vem configurado zero-setup com Expo,**Testing Library** traz queries semânticas (getByText, getByRole) e curva de aprendizado menor e mocks automáticos.Para ambiente de produção bancária, essa combinação é crítica - detecta bugs antes do deploy, validações de formulário funcionam corretamente, fluxos de transferência são seguros, e testes se componentes renderizam corretamente. Bundle size zero (dev-only))
+
+-(**StyleSheet + Theme** o uso do Stylesheet para esse projeto se teve por causa de se tratar projeto pequeno, stylesheet traz perfomance nativa, se comparado a outra opçao que seria o styled-components, pois os estilos sao compilados nativamente no projeto bom para app bancario,sem dependencias css-in-js extras do styled-components,menor bundle size , uma renderizaçao mais proxima da bridge para no final gerar codigo nativo.Utilizei ainda um tema simples e customizado pegando como base as cores do site da Cdc Bank, beneficios de usar esse tema foi design consistente, facil de manutençao para grande escala , facil adiçao de novos tokens de cores e mudanças.Os dois combinados aumentou em +20 meu desenvolvimento em telas e components do app.Em produçao poderia usar outras opçoes como Unistyles e opçao que ja traz components usaria Raect Native Reusables baseado no nativewind e shacn/ui)
 
 ## 🚀 Getting Started
 
@@ -115,12 +128,14 @@
 ### **Instalação**
 
 1. **Clone o repositório**
+
 ```bash
 git clone https://github.com/PhelipeG/Cdc-Bank-ReactNative.git
 cd Cdc-Bank-ReactNative
 ```
 
 2. **Instale as dependências**
+
 ```bash
 npm install
 # ou
@@ -128,6 +143,7 @@ yarn install
 ```
 
 3. **Execute o projeto**
+
 ```bash
 npm start
 # ou
@@ -135,6 +151,7 @@ expo start
 ```
 
 4. **Execute os testes**
+
 ```bash
 npm test
 # ou
@@ -159,6 +176,7 @@ npm run test:coverage
 ├── 📁 utils/               # Funções utilitárias
 └── 📁 __tests__/           # Testes automatizados
 ```
+
 ---
 
 ## 🧪 Testing
@@ -182,24 +200,6 @@ npm run test:watch
 
 ---
 
-## 🤝 Contributing
-
-Contribuições são bem-vindas! Por favor, siga estes passos:
-
-1. Faça um Fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
----
-
-## 📄 License
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
 ## 👨‍💻 Author
 
 <div align="center">
@@ -209,11 +209,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
   
   [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/luis-felipe-silv)
   [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PhelipeG)
-</div>
-
----
-
-<div align="center">
-  <p>⭐ Se este projeto te ajudou, considere dar uma estrela!</p>
-  <p>Made with ❤️ and ☕ by <strong>Phelipe Gomes</strong></p>
 </div>
