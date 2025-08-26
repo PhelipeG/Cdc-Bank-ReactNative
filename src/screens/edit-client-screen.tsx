@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import { RootStackParamList } from '../@types/navigation';
+import { Button } from '../components/button';
 import { ClientForm } from '../components/features/client-form';
 import { Header } from '../components/layout/header';
 import { Loading } from '../components/loading';
@@ -57,6 +58,16 @@ export default function EditClientScreen() {
           monthlyIncome: client?.monthlyIncome ? formatToBRL(client.monthlyIncome) : undefined,
         }}
       />
+
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Voltar"
+          variant="secondary"
+          icon="arrow-back"
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+
       {loading && <Loading />}
     </View>
   );
@@ -65,5 +76,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  buttonContainer: {
+    marginBottom: 145,
+    padding: 10,
   },
 });

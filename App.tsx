@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { RootStackParamList, TabParamList } from './src/@types/navigation';
+import { Loading } from './src/components/loading';
 import { AuthProvider } from './src/contexts/authContext';
 import { ClientsProvider } from './src/contexts/clientContext';
 import { useAuth } from './src/hooks/useAuth';
@@ -81,7 +82,9 @@ function Routes() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return null;
+    return(
+      <Loading />
+    );
   }
 
   return (
