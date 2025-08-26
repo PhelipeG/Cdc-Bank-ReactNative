@@ -5,6 +5,7 @@ import { ClientCard } from '../components/features/client-card';
 import { Header } from '../components/layout/header';
 import { ActionButtons } from '../components/screens/home/action-buttons';
 import { ClientsList } from '../components/screens/home/clients-list';
+import { EmptyClients } from '../components/screens/home/empty-list-clients';
 import { LoadingView } from '../components/screens/home/loading-view';
 import { SearchInput } from '../components/screens/home/search-input';
 import { useClientActions } from '../hooks/useClientActions';
@@ -35,6 +36,10 @@ export default function HomeScreen() {
   );
   if (loading || isSearching) {
     return <LoadingView search={searchTerm} onSearchChange={setSearchTerm} title="Clientes" />;
+  }
+
+  if (clients.length === 0) {
+    return <EmptyClients onCreateClient={handleNavigateToCreateClient} />;
   }
 
   return (

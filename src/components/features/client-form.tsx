@@ -14,6 +14,7 @@ import {
 import { Button } from '../button';
 import { Input } from '../input';
 
+
 interface ClientFormProps {
   onSubmit: (data: ClientFormData) => void;
   initialData?: Partial<ClientFormData>;
@@ -93,7 +94,7 @@ export const ClientForm = ({
               editable={!isEditing}
               style={isEditing ? styles.disabledInput : undefined}
               onChangeText={(text) => {
-                if (!isEditing) {
+                if (isEditing) {
                   return;
                 }
                 const formatted = formatDocumentInput(text);
@@ -105,6 +106,11 @@ export const ClientForm = ({
           )}
         />
         {errors.document && <Text style={styles.error}>{errors.document.message}</Text>}
+          {isEditing && (
+          <Text style={styles.infoText}>
+            💡 O documento não pode ser alterado após o cadastro (CPF/CNPJ)
+          </Text>
+        )}
       </View>
 
       <View style={styles.field}>
@@ -162,6 +168,7 @@ export const ClientForm = ({
 const styles = StyleSheet.create({
   container: {
     padding: theme.spacing.md,
+    paddingBottom: 120,
   },
   title: {
     fontSize: theme.fontSize.lg,
@@ -176,6 +183,12 @@ const styles = StyleSheet.create({
   error: {
     color: theme.colors.danger,
     fontSize: theme.fontSize.sm,
+    marginTop: theme.spacing.xs,
+    marginLeft: theme.spacing.xs,
+  },
+   infoText: {
+    color: theme.colors.textDark,
+    fontSize: theme.fontSize.md,
     marginTop: theme.spacing.xs,
     marginLeft: theme.spacing.xs,
   },

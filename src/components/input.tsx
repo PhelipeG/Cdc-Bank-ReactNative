@@ -11,10 +11,10 @@ export const Input = ({ placeholder, ...props }: InputProps) => (
   <TextInput style={styles.input} placeholder={placeholder} {...props} />
 );
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: theme.colors.primary,
+    borderColor: theme.colors.primary, 
     padding: theme.spacing.sm,
     borderRadius: 6,
     marginBottom: theme.spacing.sm,
