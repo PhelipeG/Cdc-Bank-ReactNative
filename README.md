@@ -111,11 +111,11 @@
 - 🧪 [**Jest**](https://jestjs.io/) + [**Testing Library**](https://testing-library.com/) - Testes unitários
 - 🎨 [**StyleSheet + Theme**]() - Estilização nativa com sistema de temas customizado
 
-- (ultilizei **Eslint** e **Prettier** para linting,formataçao automatica integrada ao (vs code) e padrao de codigo,configurei ambos com opçoes mais usadas em algumas empresas para desenvolvimento,codigo mais organizado visualmente,padrao automatica de equipe,aviso de regras como a de hooks, variaveis nao usadas,organizaçao de imports e de estilos.Eslint e Prettier sao faceis de usar com o Expo, e impacto pequeno no bundle da aplicaçao por padrao de mercado e vantagens de um padrao de codigo e regras eu produçao eu manteria os dois e usaria para complementar o husky para validaçao de commits semanticos.)
+-(ultilizei **Eslint** e **Prettier** para linting,formataçao automatica integrada ao (vs code) e padrao de codigo,configurei ambos com opçoes mais usadas em algumas empresas para desenvolvimento,codigo mais organizado visualmente,padrao automatica de equipe,aviso de regras como a de hooks, variaveis nao usadas,organizaçao de imports e de estilos.Eslint e Prettier sao faceis de usar com o Expo, e impacto pequeno no bundle da aplicaçao por padrao de mercado e vantagens de um padrao de codigo e regras eu produçao eu manteria os dois e usaria para complementar o husky para validaçao de commits semanticos.)
 
 -(**Jest** e **Testing Library** foram escolhidos para criar uma suite de testes robusta focada no comportamento do usuário. **Jest** é o framework de testes padrão do React Native, vem configurado zero-setup com Expo,**Testing Library** traz queries semânticas (getByText, getByRole) e curva de aprendizado menor e mocks automáticos.Para ambiente de produção bancária, essa combinação é crítica - detecta bugs antes do deploy, validações de formulário funcionam corretamente, fluxos de transferência são seguros, e testes se componentes renderizam corretamente. Bundle size zero (dev-only))
 
--(**StyleSheet + Theme** o uso do Stylesheet para esse projeto se teve por causa de se tratar projeto pequeno, stylesheet traz perfomance nativa, se comparado a outra opçao que seria o styled-components, pois os estilos sao compilados nativamente no projeto bom para app bancario,sem dependencias css-in-js extras do styled-components,menor bundle size , uma renderizaçao mais proxima da bridge para no final gerar codigo nativo.Utilizei ainda um tema simples e customizado pegando como base as cores do site da Cdc Bank, beneficios de usar esse tema foi design consistente, facil de manutençao para grande escala , facil adiçao de novos tokens de cores e mudanças.Os dois combinados aumentou em +20 meu desenvolvimento em telas e components do app.Em produçao poderia usar outras opçoes como Unistyles e opçao que ja traz components usaria Raect Native Reusables baseado no nativewind e shacn/ui)
+-(**StyleSheet + Theme** o uso do Stylesheet para esse projeto se teve por causa de se tratar projeto pequeno, stylesheet traz perfomance nativa, se comparado a outra opçao que seria o styled-components, pois os estilos sao compilados nativamente no projeto bom para app bancario,sem dependencias css-in-js extras do styled-components,menor bundle size , uma renderizaçao mais proxima da bridge para no final gerar codigo nativo.Utilizei ainda um tema simples e customizado pegando como base as cores do site da Cdc Bank, beneficios de usar esse tema foi design consistente, facil de manutençao para grande escala , facil adiçao de novos tokens de cores e mudanças.Os dois combinados aumentou em +20 meu desenvolvimento em telas e components do app.Em produçao poderia usar outras opçoes como Unistyles e opçao que ja traz components usaria Raect Native Reusables baseado no nativewind e shacn/ui) -[Link comparaçao StyleSheet vs Styled-Components - Tailwind RN](https://medium.com/@vinny.higuchi/compara%C3%A7%C3%A3o-entre-stylesheet-styled-components-e-tailwind-no-react-native-7936128397f9)
 
 ## 🚀 Getting Started
 
@@ -159,6 +159,11 @@ npm run test:coverage
 ```
 
 ### **Estrutura do Projeto**
+
+```
+ Decisao de arquitetura -> montei uma arquitetura que separa bem as responsabilidades , ultiliza bem hooks customizados para separar a logica da UI , facil de uma boa manutençao e teste para cada
+ componente, hook , telas , funçoes ultilitarias, contextos , serviços e modelos.Ela se baseia em uma arquitetura hibrida e limpa , onde separo tudo por features , responsabilidades unica em cada arquivo, bem particionada para melhor testabilidade e reutilizaçao  como o exemplo de components e schemas de validaçao.Para app em produçao bancaria visa ser uma otima arquitetura pois traz uma boa separaçao de camadas e type safe em toda aplicaçao.
+```
 
 ```
 📦 src/
