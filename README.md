@@ -133,7 +133,7 @@
 git clone https://github.com/PhelipeG/Cdc-Bank-ReactNative.git
 cd Cdc-Bank-ReactNative
 ```
-
+  
 2. **Instale as dependências**
 
 ```bash
@@ -158,6 +158,27 @@ npm test
 npm run test:coverage
 ```
 
+### **🔐 Como Testar o Login**
+
+> **📱 Para acessar o aplicativo, utilize qualquer email e senha válidos:**
+
+- **Email**: Qualquer email válido (ex: `usuario@teste.com`, `admin@cdc.bank`)
+- **Senha**: Qualquer senha com 6+ caracteres (ex: `123456`, `senha123`)
+
+**💡 Exemplos de credenciais válidas:**
+```
+Email: teste@email.com
+Senha: 123456
+
+Email: admin@cdc.bank  
+Senha: minhasenha
+```
+
+**⚠️ Validações aplicadas:**
+- Email deve ter formato válido (@dominio.com)
+- Senha deve ter pelo menos 6 caracteres
+- Ambos os campos são obrigatórios
+
 ### **Estrutura do Projeto**
 
 ### ** Decisoes de Arquitetura **
@@ -180,27 +201,6 @@ componente, hook , telas , funçoes ultilitarias, contextos , serviços e modelo
 ├── 📁 theme/               # Sistema de temas e estilos
 ├── 📁 utils/               # Funções utilitárias
 └── 📁 __tests__/           # Testes automatizados
-```
-
----
-
-## 🧪 Testing
-
-O projeto inclui testes automatizados para garantir qualidade e confiabilidade:
-
-- **Unit Tests** - Hooks e utilitários
-- **Component Tests** - Componentes React
-- **Integration Tests** - Fluxos principais
-
-```bash
-# Executar todos os testes
-npm test
-
-# Executar testes com coverage
-npm run test:coverage
-
-# Executar testes em modo watch
-npm run test:watch
 ```
 
 ---
